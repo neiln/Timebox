@@ -1,0 +1,31 @@
+﻿<Window x:Class="TimeBox.Views.ControllerView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xml:lang="en-US"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TimeBox.Views"
+        xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+        xmlns:resources="clr-namespace:TimeBox.Models"
+        mc:Ignorable="d"
+        Title="Control" Height="720" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+
+        </Grid.RowDefinitions>
+
+        <ContentControl Grid.Row="0" x:Name="AttendeesView"  />
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+          <WrapPanel cal:Message.Attach="[Action WrapCanvas($source)]" HorizontalAlignment="Center" VerticalAlignment="Center">
+          </WrapPanel>
+        </ScrollViewer>
+        <Button cal:Message.Attach="[Action ButtonNextName($source)]" Grid.Row="2" Content="START"></Button>
+        <Button cal:Message.Attach="[Event Loaded] = [Action ButtonPlayMusicLoaded($source)]" Grid.Row="3" Content="PLAY MUSIC"></Button>
+        <Button x:Name="ButtonNextQuote" Grid.Row="4" Content="SHOW QUOTE"></Button>
+    </Grid>
+</Window>

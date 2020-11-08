@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="TimeBox.Views.AttendeesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TimeBox.Views"
+             mc:Ignorable="d" 
+             Background="White"
+             d:DesignHeight="250" Width="250">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="Auto"/>
+            <RowDefinition  Height="*"/>
+            <RowDefinition  Height="Auto"/>
+            <RowDefinition  Height="Auto"/>
+            <RowDefinition  Height="Auto"/>
+            <RowDefinition  Height="Auto"/>
+            <RowDefinition  Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="ATTENDEES" FontSize="11" Margin="0 4 0 0"/>
+        <ListBox x:Name="Attendees" Grid.Row="1" SelectedValue="SelectedAttendee" Margin="1" />
+        <TextBlock Grid.Row="2" Text="ADD ATTENDEES" FontSize="11" Margin="0 4 0 0"/>
+        <Grid Grid.Row="3" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*" />
+                <ColumnDefinition Width="39*"/>
+                <ColumnDefinition Width="33" />
+                <ColumnDefinition Width="33" />
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="NewAttendee" Grid.Column="0" Margin="1" Grid.ColumnSpan="2" />
+            <Button x:Name="AddButton" Grid.Column="2" Content="+" Margin="1" Height="24" />
+            <Button x:Name="RemoveButton" Grid.Column="3" Content="x" Margin="1" Height="24" />
+        </Grid>
+        <TextBlock Grid.Row="5" Text="UPDATE MINUTES" FontSize="11" Margin="0 4 0 0" />
+        <ComboBox x:Name="UpdateMinutes" Grid.Row="6" SelectedValue="SelectedUpdateMinute"  />
+
+    </Grid>
+</UserControl>
+
+    

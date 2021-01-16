@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
-namespace TimeBox.Models
+namespace Timebox.Models
 {
     public class TunePlayer
     {
@@ -22,7 +22,7 @@ namespace TimeBox.Models
             string appLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             Debug.Assert(appLocation != null, nameof(appLocation) + " != null");
 
-            string mediaFile = Path.Combine(appLocation, "Asset", "Jeopardy-theme-song.mp3");
+            string mediaFile = Path.Combine(appLocation, @"Asset\Media", "Jeopardy-theme-song.mp3");
 
             if (File.Exists(mediaFile))
             {

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
-namespace TimeBox.Models
+namespace Timebox.Models
 {
     /// <summary>
     /// Loads images form Images path

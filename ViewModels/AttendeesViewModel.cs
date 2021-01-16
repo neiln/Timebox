@@ -6,14 +6,15 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
-using TimeBox.Models;
+using Timebox.Models;
 
-namespace TimeBox.ViewModels
+namespace Timebox.ViewModels
 {
     public class AttendeesViewModel : Screen
     {
         private readonly Attendees _attendees;
         private string _selectedAttendee;
+        private string _selectedBackColor;
         private int _selectedUpdateMin;
 
         public AttendeesViewModel(Attendees attendees)
@@ -23,6 +24,7 @@ namespace TimeBox.ViewModels
             UpdateMinutes = new List<int> { 2, 3, 5, 10, 15, 20, 30, 60 };
 
             _selectedUpdateMin = attendees.UpdateMinutes;
+            _selectedBackColor = attendees.BackColor;
 
         }
 
@@ -51,6 +53,22 @@ namespace TimeBox.ViewModels
                 {
                     _selectedUpdateMin = value;
                     NotifyOfPropertyChange(nameof(SelectedUpdateMinute));
+
+                    SaveChanges();
+                }
+            }
+        }
+
+        
+        public string SelectedBackColor
+        {
+            get => _selectedBackColor;
+            set
+            {
+                if (_selectedBackColor != value)
+                {
+                    _selectedBackColor = value;
+                    NotifyOfPropertyChange(nameof(SelectedBackColor));
 
                     SaveChanges();
                 }
@@ -92,7 +110,7 @@ namespace TimeBox.ViewModels
 
         private void SaveChanges()
         {
-            _attendees.Save(_attendees.AttendeeList.ToArray(), SelectedUpdateMinute);
+            _attendees.Save(_attendees.AttendeeList.ToArray(), SelectedUpdateMinute, SelectedBackColor);
         }
     }
 }

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TimeBox.Views
+namespace Timebox.Views
 {
     /// <summary>
     /// Interaction logic for ClockView.xaml

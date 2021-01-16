@@ -1,42 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Caliburn.Micro;
-using TimeBox.Models;
+using Timebox.Models;
 using System.Media;
 using System.Net.Mime;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using TimeBox.Properties;
+using Timebox.Properties;
+using Color = System.Windows.Media.Color;
 
-namespace TimeBox.ViewModels
+namespace Timebox.ViewModels
 {
     public class ControllerViewModel : Screen
     {
         private readonly AttendeesViewModel _attendeesViewModel;
         private readonly TunePlayer _tunePlayer;
         private readonly ImageSticker _imageSticker;
+        private readonly ChuckApi _chuckApi;
         private Button _playButton;
         public event EventHandler<EventArgs> ControllerEvent;
-        public ControllerViewModel(AttendeesViewModel attendeesView, TunePlayer tunePlayer, ImageSticker imageSticker)
+        public ControllerViewModel(AttendeesViewModel attendeesView, TunePlayer tunePlayer, ImageSticker imageSticker, ChuckApi chuckApi)
         {
             _attendeesViewModel = attendeesView;
 
             AttendeesView = attendeesView;
             _tunePlayer = tunePlayer;
             _imageSticker = imageSticker;
+            _chuckApi = chuckApi;
             _tunePlayer.MusicStatusChange += (s, e) =>
             {
-                _playButton.Content = _tunePlayer.IsPlaying?"STOP MUSIC":"PLAY MUSIC";
+                _playButton.Content = _tunePlayer.IsPlaying ? "STOP MUSIC" : "PLAY MUSIC";
             };
 
+        }
+
+        protected override void OnActivate()
+        {
+            SelectedBackgroundColor = _attendeesViewModel.SelectedBackColor;
+        }
+
+        protected override void OnDeactivate(bool close)
+        {
+            //Save Background Color
+            _attendeesViewModel.SelectedBackColor = _selectedBackgroundColor;
+            base.OnDeactivate(close);
         }
 
         public AttendeesViewModel AttendeesView { get; }
@@ -71,8 +88,40 @@ namespace TimeBox.ViewModels
             return btn;
         }
 
+        public BindableCollection<string> BackgroundColors
+        {
+            get
+            {
+                return new BindableCollection<string>(new []{ "Green", "White Smoke", "Royal Blue", "Dark Sea Green", "Orange Red", "Aqua", "Alice Blue" });
+            }
+        }
+
+        private string _selectedBackgroundColor;
+        public string SelectedBackgroundColor
+        {
+            get => _selectedBackgroundColor;
+            set
+            {
+                _selectedBackgroundColor = value;
+                NotifyOfPropertyChange(nameof(SelectedBackgroundColor));
+
+                Color bkColor = Colors.Green;
+
+                if (_selectedBackgroundColor == "White Smoke") bkColor = Colors.WhiteSmoke;
+                if (_selectedBackgroundColor == "Royal Blue") bkColor = Colors.RoyalBlue;
+                if (_selectedBackgroundColor == "Dark Sea Green") bkColor = Colors.DarkSeaGreen;
+                if (_selectedBackgroundColor == "Orange Red") bkColor = Colors.OrangeRed;
+                if (_selectedBackgroundColor == "Aqua") bkColor = Colors.Aqua;
+                if (_selectedBackgroundColor == "Alice Blue") bkColor = Colors.AliceBlue;
+
+                OnControllerEvent(new ChangeBackColorEventArgs() { BackColor = bkColor });
+
+            }
+        }
+
         public void ButtonNextName(Button sender)
         {
+            
             _tunePlayer.Stop();
 
             var attendeeName = _attendeesViewModel.GetNextAttendee();
@@ -91,10 +140,17 @@ namespace TimeBox.ViewModels
             }
         }
 
+        public string TextBlockQuote { get; set; }
         public void ButtonNextQuote()
         {
             _tunePlayer.Stop();
-            OnControllerEvent(new DisplayQuotesEventArgs());
+            GetChuckFact();
+        }
+
+        public void ButtonShowText()
+        {
+            _tunePlayer.Stop();
+            OnControllerEvent(new DisplayQuotesEventArgs() { Text = TextBlockQuote });
         }
 
         public void ButtonPlayMusicLoaded(Button button)
@@ -132,24 +188,27 @@ namespace TimeBox.ViewModels
             EventHandler<EventArgs> handler = ControllerEvent;
             handler?.Invoke(this, e);
         }
+
+
+        private async void GetChuckFact()
+        {
+            try
+            {
+                var result = await _chuckApi.GetChuckFact();
+                TextBlockQuote = !string.IsNullOrWhiteSpace(result.ResponseReason)
+                    ? result.ResponseReason
+                    : $"“{result.Value}”";
+            }
+            catch (Exception ex)
+            {
+                TextBlockQuote = ex.Message;
+            }
+            finally
+            {
+                NotifyOfPropertyChange(nameof(TextBlockQuote));
+            }
+
+        }
     }
 
-    public class ChangeNameEventArgs : EventArgs
-    {
-        public string Name { get; set; }
-    }
-
-    public class ResetTimerEventArgs : EventArgs
-    {
-        public bool IsResetTimer { get; set; }
-    }
-
-    public class DisplayQuotesEventArgs : EventArgs
-    {
-    }
-
-    public class DisplayEmojiEventArgs : EventArgs
-    {
-        public int EmojiIndex { get; set; }
-    }
 }

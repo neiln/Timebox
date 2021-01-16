@@ -8,14 +8,15 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 using Caliburn.Micro;
-using TimeBox.Models;
+using Timebox.Models;
 
-namespace TimeBox.ViewModels
+namespace Timebox.ViewModels
 {
     public class ClockViewModel : Screen
     {
@@ -28,6 +29,11 @@ namespace TimeBox.ViewModels
             _counterClock = new CounterClock(UpdateDisplayTime, TimesUp);
             _counterClock.SetUpdateMinutes(totalUpdateMinutes);
 
+           
+        }
+
+        protected override void OnViewLoaded(object view)
+        {
             Time = "00:00";
         }
 
@@ -36,18 +42,32 @@ namespace TimeBox.ViewModels
             _tunePlayer.Play();
         }
 
-        public string Date { get; } = DateTime.Today.ToString("ddd, dd MMM yy", CultureInfo.CreateSpecificCulture("en-US"));
+        public string Date { get; } = DateTime.Today.ToString("ddd, dd MMM", CultureInfo.CreateSpecificCulture("en-US")).ToUpper();
 
         public string Time
         {
             get => "00:00";
             set
             {
+
+
+                if (_flashSeconds)
+                {
+                    _timeGridCtrl.Name = "Start";
+                }
+               
                 var time = value;
                 MinLabel1 = time[0].ToString();
                 MinLabel2 = time[1].ToString();
                 SecLabel1 = time[3].ToString();
                 SecLabel2 = time[4].ToString();
+
+                if (_flashSeconds)
+                {
+                    _timeGridCtrl.Name = "Stop";
+                }
+
+
                 NotifyOfPropertyChange(nameof(MinLabel1));
                 NotifyOfPropertyChange(nameof(MinLabel2));
                 NotifyOfPropertyChange(nameof(SecLabel1));
@@ -60,8 +80,18 @@ namespace TimeBox.ViewModels
         public string SecLabel1 { get; set; }
         public string SecLabel2 { get; set; }
 
+        private bool _flashSeconds = false;
         public void UpdateDisplayTime(int seconds)
         {
+            if (seconds!=0 && seconds < 10)
+            {
+                _flashSeconds = true;
+            }
+            else
+            {
+                _flashSeconds = false;
+            }
+
             TimeSpan ts = new TimeSpan(0, 0, seconds);
             Time = ts.ToString(@"mm\:ss");
 
@@ -70,14 +100,21 @@ namespace TimeBox.ViewModels
 
         public async Task Stop()
         {
+            _timeGridCtrl.Name = "None";
             await _counterClock.Stop();
         }
 
         public async Task Start()
         {
+           
             await _counterClock.Reset();
         }
 
+        private Grid _timeGridCtrl;
+        public void TimeGridLoaded(Grid ctrl)
+        {
+            _timeGridCtrl = ctrl;
+        }
     }
 
 }

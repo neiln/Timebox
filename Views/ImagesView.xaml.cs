@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Timebox.Views
 {
     /// <summary>
-    /// Interaction logic for AttendeesView.xaml
+    /// Interaction logic for ImagesView.xaml
     /// </summary>
-    public partial class AttendeesView : UserControl
+    public partial class ImagesView : UserControl
     {
-        public AttendeesView()
+        public ImagesView()
         {
             InitializeComponent();
         }

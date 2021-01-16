@@ -7,12 +7,12 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TimeBox.Models
+namespace Timebox.Models
 {
     public class ChuckApi
     {
         private readonly HttpClient _apiClient;
-        private string _url = "https://api.chucknorris.io/jokes/random";//"?category=dev";
+        private string _url = "https://api.chucknorris.io/jokes/random?category=dev";
        
         public ChuckApi()
         {

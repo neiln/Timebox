@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.30225.117
+VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeBox", "TimeBox.csproj", "{5FB1B929-4D07-4347-9880-1E2B5898DC02}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timebox", "Timebox.csproj", "{5FB1B929-4D07-4347-9880-1E2B5898DC02}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +20,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {6E1F5FF7-F4CB-4E95-BEBF-48C2DFD585F0}
+		SolutionGuid = {22A95B0F-68B3-4FEB-A078-D1A2EB8877A4}
 	EndGlobalSection
 EndGlobal

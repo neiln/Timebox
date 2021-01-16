@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TimeBox.Models
+namespace Timebox.Models
 {
     public class AppConfig
     {
@@ -23,19 +23,24 @@ namespace TimeBox.Models
                 UpdateMinutes = result;
             }
 
+            BackColor = ConfigurationManager.AppSettings["BackColor"];
+
         }
 
         public string[] AttendeeNames { get; private set; }
         public int UpdateMinutes { get; private set; } = 3;
 
-        public void Save(string [] attendees, int updateMin)
+        public string BackColor { get; set; } = "Green";
+
+        public void Save(string [] attendees, int updateMin, string backColor)
         {
             AttendeeNames = attendees;
             UpdateMinutes = updateMin;
 
-            _config.AppSettings.Settings["UpdateMinutes"].Value = UpdateMinutes.ToString();
-            _config.AppSettings.Settings["Attendees"].Value = string.Join(",", AttendeeNames); ;
-            
+            _config.AppSettings.Settings["UpdateMinutes"].Value = updateMin.ToString();
+            _config.AppSettings.Settings["Attendees"].Value = string.Join(",", attendees); ;
+            _config.AppSettings.Settings["BackColor"].Value = backColor;
+
             _config.Save(ConfigurationSaveMode.Modified);
 
         }

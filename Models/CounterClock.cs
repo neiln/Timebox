@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
-using TimeBox.ViewModels;
+using Timebox.ViewModels;
 
-namespace TimeBox.Models
+namespace Timebox.Models
 {
     public class CounterClock
     {

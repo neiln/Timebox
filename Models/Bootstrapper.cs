@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using Autofac;
 using Caliburn.Micro.Autofac;
-using TimeBox.ViewModels;
+using Timebox.ViewModels;
 using System.Windows;
 using System.Windows.Media;
 using Autofac.Core;
-using TimeBox.Views;
+using Timebox.Views;
 
-namespace TimeBox.Models
+namespace Timebox.Models
 {
     public class Bootstrapper: AutofacBootstrapper<ShellViewModel>
     {

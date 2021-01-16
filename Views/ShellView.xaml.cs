@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace TimeBox.Views
+namespace Timebox.Views
 {
     /// <summary>
     /// Interaction logic for ShellView.xaml

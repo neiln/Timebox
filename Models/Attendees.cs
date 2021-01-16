@@ -6,9 +6,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Syroot.Windows.IO; //from Nuget
+using Syroot.Windows.IO;
 
-namespace TimeBox.Models
+namespace Timebox.Models
 {
     public class Attendees
     {
@@ -47,9 +47,11 @@ namespace TimeBox.Models
 
         public int UpdateMinutes => _appConfig.UpdateMinutes;
 
-        public void Save(string[] attendees, int updateMin)
+        public string BackColor => _appConfig.BackColor;
+
+        public void Save(string[] attendees, int updateMin, string backColor)
         {
-            _appConfig.Save(attendees, updateMin);
+            _appConfig.Save(attendees, updateMin, backColor);
         }
 
     }

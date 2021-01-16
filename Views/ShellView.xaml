@@ -1,30 +1,29 @@
-﻿<Window x:Class="TimeBox.Views.ShellView"
+﻿<Window x:Class="Timebox.Views.ShellView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TimeBox"
+        xmlns:local="clr-namespace:Timebox"
+        xmlns:cal="http://www.caliburnproject.org"
         mc:Ignorable="d"
-        Background="{Binding ChromaKeyColor}"
-        Title="{Binding AppTitle}" Height="270" Width="910" MinWidth="360" MinHeight="255">
+        Background="{Binding BackBrush}"
+        Title="{Binding AppTitle}" 
+        Height="260" Width="650" MaxWidth="650" MinWidth="330" MinHeight="260" MaxHeight="280">
 
     <Grid Margin="12">
-        
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="140" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        
-        <ContentControl x:Name="ClockView" Grid.Column="0" Grid.Row="0" Content=""></ContentControl>
-        <ContentControl x:Name="QuotesView" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Content=""></ContentControl>
 
-        <Label x:Name="DisplayTitle" Grid.Column="0" Grid.Row="1" FontSize="32" FontFamily="Bahnschrift SemiCondensed" Background="#0B2647" Foreground="LightGray" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="8" />
-        
+        <StackPanel Orientation="Horizontal">
+            <StackPanel cal:Message.Attach="[Event Loaded] = [Action ClockSideLoaded($source)]" Width="300" Orientation="Vertical" Style="{StaticResource VisibleAnimation}" Visibility="Visible">
+                <ContentControl x:Name="ClockView" Height="140" Content=""></ContentControl>
+                <Border Background="#0B2647">
+                    <Label x:Name="DisplayTitle" cal:Message.Attach="[Event Loaded] = [Action DisplayTextLoaded($source)]" Height="60" FontSize="32" FontFamily="Bahnschrift SemiCondensed" Foreground="AliceBlue" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource MoveTextAnimation}" Visibility="Visible"/>
+                </Border>
+            </StackPanel>
+            <ContentControl x:Name="QuotesView" cal:Message.Attach="[Event Loaded] = [Action QuoteSideLoaded($source)]" Width="600" Margin="4" Style="{StaticResource VisibleAnimation}"></ContentControl>
+            <ContentControl x:Name="ImagesView" cal:Message.Attach="[Event Loaded] = [Action ImageSideLoaded($source)]" Width="600" Margin="4" Style="{StaticResource VisibleAnimation}"></ContentControl>
+        </StackPanel>
+
     </Grid>
 
 </Window>

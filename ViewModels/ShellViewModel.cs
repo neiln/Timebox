@@ -5,34 +5,36 @@ using System;
 using System.Dynamic;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using Caliburn.Micro;
 using System.Windows.Media;
-using TimeBox.Models;
-using TimeBox.Views;
+using Timebox.Models;
+using Timebox.Views;
 
-namespace TimeBox.ViewModels
+namespace Timebox.ViewModels
 {
     public class ShellViewModel : Screen
     {
         private readonly IWindowManager _windowManager;
         private readonly ControllerViewModel _controllerView;
+        private Brush _backBrush = new SolidColorBrush(Colors.Green);
         public string AppTitle => "Scrum Time!";
-        public Brush ChromaKeyColor => new SolidColorBrush(Colors.Green);
 
         public ShellViewModel(IWindowManager windowManager, 
                               ClockViewModel clockView, 
                               QuotesViewModel quotesView, 
+                              ImagesViewModel imagesView,
                               ControllerViewModel controllerView)
         {
             
-            DisplayTitle = "GOOD MORNING!";
 
             ClockView = clockView;
             QuotesView = quotesView;
+            ImagesView = imagesView;
 
             _windowManager = windowManager;
             _controllerView = controllerView;
-
+           
             _controllerView.ControllerEvent += async (sender, eArg) =>
             {
                 if (eArg is ChangeNameEventArgs change)
@@ -40,7 +42,7 @@ namespace TimeBox.ViewModels
                     await ClockView.Stop();
                     DisplayTitle = change.Name.ToUpper();
                     await ClockView.Start();
-                    
+
                     NotifyOfPropertyChange(nameof(DisplayTitle));
                 }
 
@@ -57,18 +59,42 @@ namespace TimeBox.ViewModels
 
                 if (eArg is DisplayQuotesEventArgs quotes)
                 {
-                    QuotesView.RefreshQuote();
+                    _clockSideControl.Visibility = Visibility.Collapsed;
+                    _imageSideControl.Visibility = Visibility.Collapsed;
+                    _quoteSideControl.Visibility = Visibility.Visible;
+                    QuotesView.SetText(quotes.Text);
+                    
                 }
 
-                if (eArg is DisplayEmojiEventArgs e)
+                if (eArg is DisplayEmojiEventArgs displayEmojiEvent)
                 {
-                    //QuotesView.Text = "\"SOMETHING BETTER THAN NOTHING\"";
-                    //QuotesView.NotifyOfPropertyChange(nameof(QuotesView.Text));
-                    QuotesView.ShowImage(e.EmojiIndex);
+                    _quoteSideControl.Visibility = Visibility.Collapsed;
+                    _clockSideControl.Visibility = Visibility.Visible;
+                    _imageSideControl.Visibility = Visibility.Collapsed;
+                    
+                    ImagesView.ShowImage(displayEmojiEvent.EmojiIndex);
+
+                    _imageSideControl.Visibility = Visibility.Visible;
+                }
+
+                if (eArg is ChangeBackColorEventArgs changeColorEvent)
+                {
+                   BackBrush = new SolidColorBrush(changeColorEvent.BackColor);
                 }
             };
 
 
+        }
+
+
+        public Brush BackBrush
+        {
+            get => _backBrush;
+            set
+            {
+                _backBrush = value; 
+                NotifyOfPropertyChange(nameof(BackBrush));
+            }
         }
 
         protected override void OnActivate()
@@ -82,7 +108,43 @@ namespace TimeBox.ViewModels
 
         public QuotesViewModel QuotesView { get; }
 
-        public string DisplayTitle { get; set; }
+        public ImagesViewModel ImagesView { get; }
+
+        private string _displayText = "GOOD MORNING!";
+        public string DisplayTitle
+        {
+            get => _displayText;
+            set
+            {
+                _displayTextControl.Visibility = Visibility.Collapsed;
+                _displayText = value;
+                _displayTextControl.Visibility = Visibility.Visible;
+            }
+        }
+
+        private StackPanel _clockSideControl;
+        public void ClockSideLoaded(StackPanel ctrl)
+        {
+            _clockSideControl = ctrl;
+        }
+
+        private ContentControl _quoteSideControl;
+        public void QuoteSideLoaded(ContentControl ctrl)
+        {
+            _quoteSideControl = ctrl;
+        }
+
+        private ContentControl _imageSideControl;
+        public void ImageSideLoaded(ContentControl ctrl)
+        {
+            _imageSideControl = ctrl;
+        }
+
+        private Label _displayTextControl;
+        public void DisplayTextLoaded(Label ctrl)
+        {
+            _displayTextControl = ctrl;
+        }
 
         private void ShowController()
         {
@@ -96,7 +158,9 @@ namespace TimeBox.ViewModels
             settings.Left = 1100;
 
             _windowManager.ShowWindow(_controllerView, null, settings);
+
         }
 
     }
+
 }

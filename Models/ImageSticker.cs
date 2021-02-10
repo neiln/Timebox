@@ -20,7 +20,7 @@ namespace Timebox.Models
     {
         public ImageSticker()
         {
-            Stickers = new List<string>(){ "🤣", "🤔", "👍", "😎", "💪", "😔", "😉", "🙏", "👌", "👏", "🎉" };
+            //Stickers = new List<string>(){ "🤣", "🤔", "👍", "😎", "💪", "😔", "😉", "🙏", "👌", "👏", "🎉" };
 
             //string appLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             //Debug.Assert(appLocation != null, nameof(appLocation) + " != null");
@@ -33,6 +33,14 @@ namespace Timebox.Models
             //{
             //    _stickers.Add(file.FullName);
             //}
+
+            string appLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+            if (Directory.Exists(appLocation))
+            {
+                string path = Path.Combine(appLocation, @"Asset\Stickers");
+                Stickers = Directory.EnumerateFiles(path).Select(x => x).OrderBy(x=>x).ToList();
+            }
 
         }
 

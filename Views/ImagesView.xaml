@@ -8,8 +8,8 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Canvas ZIndex="0" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <!--<Image Source="{Binding StickerImage}" Width="200" Height="200" Canvas.Left="200" Canvas.Top="10"></Image>-->
-            <TextBlock Width="200" Height="200"  Text="{Binding StickerImage}" Canvas.Left="-260" Canvas.Top="-100" FontSize="142"></TextBlock>
+            <Image Source="{Binding StickerImage}" Width="200" Height="200" Canvas.Left="-260" Canvas.Top="-100"></Image>
+            <!--<TextBlock Width="200" Height="200"  Text="{Binding StickerImage}" Canvas.Left="-260" Canvas.Top="-100" FontSize="142"></TextBlock>-->
         </Canvas>
     </Grid>
 </UserControl>

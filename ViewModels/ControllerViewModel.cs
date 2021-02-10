@@ -1,22 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using Caliburn.Micro;
+using System;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Caliburn.Micro;
-using Timebox.Models;
-using System.Media;
-using System.Net.Mime;
-using System.Reflection;
-using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Timebox.Properties;
+using Timebox.Models;
 using Color = System.Windows.Media.Color;
 
 namespace Timebox.ViewModels
@@ -66,9 +55,9 @@ namespace Timebox.ViewModels
                 panel.Children.Add(GetButton(idx, sticker));
             }
 
-            Button btnClr = GetButton(-1, null);
-            btnClr.Content = "X";
-            panel.Children.Add(btnClr);
+            //Button btnClr = GetButton(-1, null);
+            //btnClr.Content = "X";
+            //panel.Children.Add(btnClr);
         }
 
         private Button GetButton(int idx, string sticker)
@@ -76,11 +65,12 @@ namespace Timebox.ViewModels
             Button btn = new Button
             {
                 Tag = idx,
-                Content = sticker,//!=null ? new Image() { Source = new BitmapImage(new Uri(sticker))} : null,
+                Content = sticker!=null ? new System.Windows.Controls.Image() { Source = new BitmapImage(new Uri(sticker))} : null,
                 Width = 60,
                 Height = 60,
                 FontSize = 32,
                 Margin = new Thickness(2),
+                Padding = new Thickness(4),
                 Background = new SolidColorBrush(Colors.White),
             };
             btn.Click += (s, e) =>

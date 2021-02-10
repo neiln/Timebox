@@ -1,6 +1,8 @@
 ﻿using Caliburn.Micro;
 using System;
 using System.Drawing;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -73,16 +75,29 @@ namespace Timebox.ViewModels
                 Padding = new Thickness(4),
                 Background = new SolidColorBrush(Colors.White),
             };
-            btn.Click += (s, e) =>
+            btn.Click += async (s, e) =>
             {
                 if (idx < 4)
                 {
                     _tunePlayer.Play(idx);
                 }
-                OnControllerEvent(new DisplayEmojiEventArgs() { EmojiIndex = idx });
+
+                OnControllerEvent(new DisplayEmojiEventArgs() { EmojiIndex = idx }); 
+                
+                await ClearAfter();
             };
 
             return btn;
+        }
+
+        private async Task ClearAfter()
+        {
+            await Task.Run(() =>
+            {
+                Thread.Sleep(2000);
+            });
+
+            OnControllerEvent(new DisplayEmojiEventArgs() { EmojiIndex = -1 });
         }
 
         public BindableCollection<string> BackgroundColors

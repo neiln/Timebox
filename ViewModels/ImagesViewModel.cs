@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using Timebox.Models;
@@ -19,7 +20,7 @@ namespace Timebox.ViewModels
 
         public void ShowImage(int idx)
         {
-            if (idx == 11)
+            if (idx == -1 || idx == 11)
             {
                 StickerImage = null;
                 NotifyOfPropertyChange(nameof(StickerImage));

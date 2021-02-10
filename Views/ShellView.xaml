@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Timebox"
         xmlns:cal="http://www.caliburnproject.org"
         mc:Ignorable="d"
+        WindowStyle="SingleBorderWindow"
         Background="{Binding BackBrush}"
         Title="{Binding AppTitle}" 
         Height="260" Width="650" MaxWidth="650" MinWidth="330" MinHeight="260" MaxHeight="280">

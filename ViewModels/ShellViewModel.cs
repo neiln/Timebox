@@ -112,9 +112,9 @@ namespace Timebox.ViewModels
         protected override void OnActivate()
         {
             base.OnActivate();
-
             ShowController();
         }
+
 
         public ClockViewModel ClockView { get; }
 
@@ -162,8 +162,9 @@ namespace Timebox.ViewModels
         {
             dynamic settings = new ExpandoObject();
             settings.WindowStyle = WindowStyle.ThreeDBorderWindow;
-            settings.ShowInTaskbar = true;
+            settings.ShowInTaskbar = false;
             settings.Title = "Controller";
+            settings.WindowStyle = WindowStyle.ToolWindow;
             settings.WindowState = WindowState.Normal;
             settings.ResizeMode = ResizeMode.NoResize;
             settings.Top = 120;

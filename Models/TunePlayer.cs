@@ -14,15 +14,20 @@ namespace Timebox.Models
     public class TunePlayer
     {
         private readonly MediaPlayer _mediaPlayer;
+        private readonly IEnumerable<Uri> _soundFiles;
         public event EventHandler<EventArgs> MusicStatusChange;
         public TunePlayer()
         {
             _mediaPlayer = new MediaPlayer();
 
             string appLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            Debug.Assert(appLocation != null, nameof(appLocation) + " != null");
+           // Debug.Assert(appLocation != null, nameof(appLocation) + " != null");
 
             string mediaFile = Path.Combine(appLocation, @"Asset\Media", "Jeopardy-theme-song.mp3");
+
+            string path = Path.Combine(appLocation, @"Asset\Media");
+
+           _soundFiles = Directory.EnumerateFiles(path).Select(x => new Uri(x)).OrderBy(x => x.AbsolutePath);
 
             if (File.Exists(mediaFile))
             {
@@ -43,10 +48,29 @@ namespace Timebox.Models
 
         public void Play()
         {
+
             _mediaPlayer.Stop();
+
+            var uri = _soundFiles.ElementAt(4);
+            _mediaPlayer.Open(uri);
             _mediaPlayer.Play();
             IsPlaying = true;
             OnMusicStatusChangeEvent(EventArgs.Empty);
+        }
+
+        public void Play(int idx)
+        {
+            _mediaPlayer.Stop();
+
+            if (idx < 0) { return; }
+
+            var uri = _soundFiles.ElementAt(idx);
+            
+            _mediaPlayer.Open(uri);
+            _mediaPlayer.Play();
+            IsPlaying = true;
+            OnMusicStatusChangeEvent(EventArgs.Empty);
+
         }
 
         public void Stop()

@@ -49,8 +49,6 @@ namespace Timebox.ViewModels
             get => "00:00";
             set
             {
-
-
                 if (_flashSeconds)
                 {
                     _timeGridCtrl.Name = "Start";

@@ -3,6 +3,7 @@
 //
 using System;
 using System.Dynamic;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -40,7 +41,18 @@ namespace Timebox.ViewModels
                 if (eArg is ChangeNameEventArgs change)
                 {
                     await ClockView.Stop();
+
+                    _displayText = "????";
+                    NotifyOfPropertyChange(nameof(DisplayTitle));
+
+                    await Task.Run(() =>
+                    {
+                        Thread.Sleep(2000);
+                    });
+
+
                     DisplayTitle = change.Name.ToUpper();
+                    
                     await ClockView.Start();
 
                     NotifyOfPropertyChange(nameof(DisplayTitle));

@@ -83,7 +83,14 @@ namespace Timebox.ViewModels
                 Margin = new Thickness(2),
                 Background = new SolidColorBrush(Colors.White),
             };
-            btn.Click += (s, e) => { OnControllerEvent(new DisplayEmojiEventArgs() { EmojiIndex = idx }); };
+            btn.Click += (s, e) =>
+            {
+                if (idx < 4)
+                {
+                    _tunePlayer.Play(idx);
+                }
+                OnControllerEvent(new DisplayEmojiEventArgs() { EmojiIndex = idx });
+            };
 
             return btn;
         }
@@ -180,7 +187,12 @@ namespace Timebox.ViewModels
 
         public void ButtonShowEmoticon(int id)
         {
-            OnControllerEvent(new DisplayEmojiEventArgs() { EmojiIndex = id });
+
+            OnControllerEvent(new DisplayEmojiEventArgs()
+            {
+                EmojiIndex = id
+            });
+
         }
 
         protected virtual void OnControllerEvent(EventArgs e)

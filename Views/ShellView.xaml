@@ -16,7 +16,7 @@
         <StackPanel Orientation="Horizontal">
             <StackPanel cal:Message.Attach="[Event Loaded] = [Action ClockSideLoaded($source)]" Width="300" Orientation="Vertical" Style="{StaticResource VisibleAnimation}" Visibility="Visible">
                 <ContentControl x:Name="ClockView" Height="140" Content=""></ContentControl>
-                <Border Background="#0B2647">
+                <Border Background="#202020">
                     <Label x:Name="DisplayTitle" cal:Message.Attach="[Event Loaded] = [Action DisplayTextLoaded($source)]" Height="60" FontSize="32" FontFamily="Bahnschrift SemiCondensed" Foreground="AliceBlue" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource MoveTextAnimation}" Visibility="Visible"/>
                 </Border>
             </StackPanel>

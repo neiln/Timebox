@@ -1,6 +1,8 @@
 ﻿using Caliburn.Micro;
 using System;
+using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,10 +19,10 @@ namespace Timebox.ViewModels
         private readonly AttendeesViewModel _attendeesViewModel;
         private readonly TunePlayer _tunePlayer;
         private readonly ImageSticker _imageSticker;
-        private readonly ChuckApi _chuckApi;
+        private readonly ChuckApiService _chuckApi;
         private Button _playButton;
         public event EventHandler<EventArgs> ControllerEvent;
-        public ControllerViewModel(AttendeesViewModel attendeesView, TunePlayer tunePlayer, ImageSticker imageSticker, ChuckApi chuckApi)
+        public ControllerViewModel(AttendeesViewModel attendeesView, TunePlayer tunePlayer, ImageSticker imageSticker, ChuckApiService chuckApi)
         {
             _attendeesViewModel = attendeesView;
 
@@ -67,7 +69,7 @@ namespace Timebox.ViewModels
             Button btn = new Button
             {
                 Tag = idx,
-                Content = sticker!=null ? new System.Windows.Controls.Image() { Source = new BitmapImage(new Uri(sticker))} : null,
+                Content = sticker != null ? new System.Windows.Controls.Image() { Source = new BitmapImage(new Uri(sticker)) } : null,
                 Width = 60,
                 Height = 60,
                 FontSize = 32,
@@ -82,12 +84,17 @@ namespace Timebox.ViewModels
                     _tunePlayer.Play(idx);
                 }
 
-                OnControllerEvent(new DisplayEmojiEventArgs() { EmojiIndex = idx }); 
-                
+                OnControllerEvent(new DisplayEmojiEventArgs() { EmojiIndex = idx });
+
                 await ClearAfter();
             };
 
             return btn;
+        }
+
+        internal void PlayWaitMusic()
+        {
+            _tunePlayer.Play(6);
         }
 
         private async Task ClearAfter()
@@ -104,7 +111,7 @@ namespace Timebox.ViewModels
         {
             get
             {
-                return new BindableCollection<string>(new []{ "Green", "White Smoke", "Royal Blue", "Dark Sea Green", "Orange Red", "Aqua", "Alice Blue" });
+                return new BindableCollection<string>(new[] { "Green", "White Smoke", "Royal Blue", "Dark Sea Green", "Orange Red", "Aqua", "Alice Blue" });
             }
         }
 
@@ -133,7 +140,7 @@ namespace Timebox.ViewModels
 
         public void ButtonNextName(Button sender)
         {
-            
+
             _tunePlayer.Stop();
 
             var attendeeName = _attendeesViewModel.GetNextAttendee();
@@ -156,12 +163,23 @@ namespace Timebox.ViewModels
         public void ButtonNextQuote()
         {
             _tunePlayer.Stop();
-            GetChuckFact();
+            //GetChuckFact();
+            GetTriviaQuestion();
         }
 
         public void ButtonShowText()
         {
             _tunePlayer.Stop();
+            OnControllerEvent(new DisplayQuotesEventArgs() { Text = TextBlockQuote });
+        }
+
+        public void ButtonShowAnswer()
+        {
+            _tunePlayer.Stop();
+
+            if (_trivia == null) return;
+            TextBlockQuote = _trivia.Correct_Answer;
+            NotifyOfPropertyChange(nameof(TextBlockQuote));
             OnControllerEvent(new DisplayQuotesEventArgs() { Text = TextBlockQuote });
         }
 
@@ -206,6 +224,54 @@ namespace Timebox.ViewModels
             handler?.Invoke(this, e);
         }
 
+        private TriviaModel _trivia;
+        private async void GetTriviaQuestion()
+        {
+            try
+            {
+                TriviaApiService triviaService = new TriviaApiService();
+
+                var triviaResult = await triviaService.GetTrivia();
+
+                _trivia = null;
+                _trivia = triviaResult.Results.FirstOrDefault();
+
+                if (_trivia != null)
+                {
+                    //insert the correct answer in the random spot
+                    Random rnd = new Random();
+                    int idx = rnd.Next(0, 3);
+
+                    var lst = _trivia.Incorrect_Answers.Select(x => x).ToList();
+                    lst.Insert(idx, _trivia.Correct_Answer);
+
+                    //add options A-D
+                    var r = lst.Select((value, index) => $"{(char)(65 + index)}. {value}");
+
+                    //insert indentation
+                    string result = r.Select(i => i).Aggregate((i, j) => i + "\r\n   " + j);
+                    result = $"{_trivia.Question}\r\n   {result}";
+
+                    //remove quotations and apostrophes
+                    var question = result.Replace("&#039;", "'").Replace("&quot;", "'");
+
+
+                    TextBlockQuote = !string.IsNullOrWhiteSpace(question)
+                        ? question
+                        : $"";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                TextBlockQuote = ex.Message;
+            }
+            finally
+            {
+                NotifyOfPropertyChange(nameof(TextBlockQuote));
+            }
+
+        }
 
         private async void GetChuckFact()
         {

@@ -34,7 +34,7 @@ namespace Timebox.Models
                 var mediaUrl = new Uri(mediaFile);
 
                 _mediaPlayer.Open(mediaUrl);
-                _mediaPlayer.Volume = 0.2;
+                _mediaPlayer.Volume = 0.5;
             }
 
             _mediaPlayer.MediaEnded += (s, e) =>

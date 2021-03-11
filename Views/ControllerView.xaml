@@ -38,9 +38,11 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
-            <Button x:Name="ButtonNextQuote" Grid.Column="0" Content="GET QUOTE"></Button>
-            <Button x:Name="ButtonShowText" Grid.Column="1" Content="SHOW TEXT"></Button>
+            <Button x:Name="ButtonNextQuote" Grid.Column="0" Content="FETCH"></Button>
+            <Button x:Name="ButtonShowText" Grid.Column="1" Content="SHOW"></Button>
+            <Button x:Name="ButtonShowAnswer" Grid.Column="2" Content="ANSWER"></Button>
         </Grid>
             
     </Grid>

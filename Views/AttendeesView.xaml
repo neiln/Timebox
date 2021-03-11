@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Text="ATTENDEES" FontSize="11" Margin="0 4 0 0"/>
-        <ListBox x:Name="Attendees" Grid.Row="1" SelectedValue="SelectedAttendee" Margin="1" />
+        <ListView x:Name="Attendees" Grid.Row="1" SelectedValue="SelectedAttendee"  Margin="1"  />
         <TextBlock Grid.Row="2" Text="ADD ATTENDEES" FontSize="11" Margin="0 4 0 0"/>
         <Grid Grid.Row="3" >
             <Grid.ColumnDefinitions>

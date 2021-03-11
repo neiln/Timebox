@@ -9,11 +9,11 @@
     <Grid HorizontalAlignment="Center">
         <Canvas ZIndex="0" VerticalAlignment="Center" HorizontalAlignment="Center">
             <!--<Image Source="{Binding StickerImage}" Width="200" Height="200" Canvas.Left="200" Canvas.Top="10"></Image>-->
-            <TextBlock Width="200" Height="200"  Text="{Binding StickerImage}" Canvas.Left="-260" Canvas.Top="-100" FontSize="142"></TextBlock>
+            <!--<TextBlock Width="200" Height="200"  Text="{Binding StickerImage}" Canvas.Left="-260" Canvas.Top="-100" FontSize="142"></TextBlock>-->
         </Canvas>
 
         <Border x:Name="QuoteRegion">
-            <TextBlock x:Name="Text" TextWrapping="Wrap" VerticalAlignment="Center" Style="{StaticResource FontQuote}" FontSize="35" FontWeight="DemiBold" Margin="12" Padding="8" />
+            <TextBlock x:Name="Text" TextWrapping="Wrap" VerticalAlignment="Top" Style="{StaticResource FontQuote}" FontSize="35" FontWeight="DemiBold" Margin="12" Padding="8" />
         </Border>
 
 

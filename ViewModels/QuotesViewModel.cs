@@ -21,5 +21,6 @@ namespace Timebox.ViewModels
             NotifyOfPropertyChange(nameof(Text));
         }
 
+
     }
 }

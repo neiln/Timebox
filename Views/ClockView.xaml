@@ -28,7 +28,7 @@
                 <Label x:Name="SecLabel1" Grid.Column="3" Style="{StaticResource ClockLabel}">5</Label>
                 <Label x:Name="SecLabel2" Grid.Column="4" Style="{StaticResource ClockLabel}">4</Label>
             </Grid>
-            <Label x:Name="Date" Grid.Row="1" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Center" VerticalContentAlignment="Center"  FontSize="38" FontWeight="ExtraBold" Content="SEP 29, 2020"></Label>
+            <Label x:Name="Date" Grid.Row="1" FontFamily="Bahnschrift SemiCondensed" HorizontalAlignment="Center" VerticalContentAlignment="Center"  FontSize="36" FontWeight="ExtraBold" Content="SEP 29, 2020"></Label>
         
     </Grid>
 

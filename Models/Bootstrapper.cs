@@ -26,11 +26,12 @@ namespace Timebox.Models
         {
             builder.RegisterType<ImageSticker>().As<ImageSticker>().SingleInstance();
             builder.RegisterType<Attendees>().As<Attendees>();
-            builder.RegisterType<ChuckApi>().As<ChuckApi>();
+            builder.RegisterType<ChuckApiService>().As<ChuckApiService>();
             builder.RegisterType<QuotesViewModel>().As<QuotesViewModel>();
             builder.RegisterType<ClockViewModel>().As<ClockViewModel>();
             builder.RegisterType<AppConfig>().As<AppConfig>().SingleInstance();
             builder.RegisterType<TunePlayer>().As<TunePlayer>().SingleInstance();
+            builder.RegisterType<VoiceModel>().As<VoiceModel>();
             builder.RegisterType<ControllerViewModel>().As<ControllerViewModel>();
             builder.RegisterType<ShellViewModel>();
         }

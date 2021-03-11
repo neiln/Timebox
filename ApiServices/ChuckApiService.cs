@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Timebox.Models
 {
-    public class ChuckApi
+    public class ChuckApiService
     {
         private readonly HttpClient _apiClient;
         private string _url = "https://api.chucknorris.io/jokes/random?category=dev";
        
-        public ChuckApi()
+        public ChuckApiService()
         {
             _apiClient = new HttpClient();
             _apiClient.DefaultRequestHeaders.Accept.Clear();

@@ -132,7 +132,7 @@
                     <BeginStoryboard>
                         <Storyboard>
                             <DoubleAnimation Storyboard.TargetProperty="(Label.FontSize)"
-                                             From="60.0" To="32.0" Duration="0:0:0.2">
+                                             From="62.0" To="32.0" Duration="0:0:0.2">
                             </DoubleAnimation>
                         </Storyboard>
                     </BeginStoryboard>

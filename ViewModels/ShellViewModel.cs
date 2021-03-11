@@ -18,6 +18,8 @@ namespace Timebox.ViewModels
     {
         private readonly IWindowManager _windowManager;
         private readonly ControllerViewModel _controllerView;
+        private Label _displayTextControl;
+        private readonly VoiceModel _voiceModel;
         private Brush _backBrush = new SolidColorBrush(Colors.Green);
         public string AppTitle => "Scrum Time!";
 
@@ -25,34 +27,42 @@ namespace Timebox.ViewModels
                               ClockViewModel clockView, 
                               QuotesViewModel quotesView, 
                               ImagesViewModel imagesView,
+                              VoiceModel voiceModel,
                               ControllerViewModel controllerView)
         {
-            
-
             ClockView = clockView;
             QuotesView = quotesView;
             ImagesView = imagesView;
-
             _windowManager = windowManager;
             _controllerView = controllerView;
-           
+            _voiceModel = voiceModel;
+
             _controllerView.ControllerEvent += async (sender, eArg) =>
             {
-                if (eArg is ChangeNameEventArgs change)
+                if (eArg is ChangeNameEventArgs nextAttendee)
                 {
                     await ClockView.Stop();
 
-                    _displayText = "????";
+                    if (DisplayTitle != "GOOD MORNING!" && DisplayTitle != "THANK YOU!")
+                    {
+                        //speakText = PronounceText(DisplayTitle);
+                        //_voiceModel.Speak("Next");
+                    }
+
+                    _displayText = "------";
                     NotifyOfPropertyChange(nameof(DisplayTitle));
 
                     await Task.Run(() =>
                     {
-                        Thread.Sleep(2000);
+                        Thread.Sleep(1000);
                     });
 
 
-                    DisplayTitle = change.Name.ToUpper();
-                    
+                   // speakText = PronounceText(nextAttendee.Name);
+                   // _voiceModel.Speak("next " + speakText);
+
+                    DisplayTitle = nextAttendee.Name.ToUpper();
+
                     await ClockView.Start();
 
                     NotifyOfPropertyChange(nameof(DisplayTitle));
@@ -62,31 +72,30 @@ namespace Timebox.ViewModels
                 {
                     if (reset.IsResetTimer)
                     {
-                        DisplayTitle = "THANK-YOU!";
+                        voiceModel.Speak("Thanks, That's all folks, let's do a trivia question");
+                        DisplayTitle = "THANK YOU!";
                         await ClockView.Stop();
                         
                         NotifyOfPropertyChange(nameof(DisplayTitle));
+
+                        if (_controllerView.TextBlockQuote != null)
+                        {
+                            await Task.Run(() => { Thread.Sleep(5000); });
+
+                            _controllerView.PlayWaitMusic();
+                            ShowQuotes(_controllerView.TextBlockQuote);
+                        }
                     }
                 }
 
                 if (eArg is DisplayQuotesEventArgs quotes)
                 {
-                    _clockSideControl.Visibility = Visibility.Collapsed;
-                    _imageSideControl.Visibility = Visibility.Collapsed;
-                    _quoteSideControl.Visibility = Visibility.Visible;
-                    QuotesView.SetText(quotes.Text);
-                    
+                    ShowQuotes(quotes.Text);
                 }
 
                 if (eArg is DisplayEmojiEventArgs displayEmojiEvent)
                 {
-                    _quoteSideControl.Visibility = Visibility.Collapsed;
-                    _clockSideControl.Visibility = Visibility.Visible;
-                    _imageSideControl.Visibility = Visibility.Collapsed;
-                    
-                    ImagesView.ShowImage(displayEmojiEvent.EmojiIndex);
-
-                    _imageSideControl.Visibility = Visibility.Visible;
+                    ShowEmoji(displayEmojiEvent.EmojiIndex);
                 }
 
                 if (eArg is ChangeBackColorEventArgs changeColorEvent)
@@ -96,6 +105,43 @@ namespace Timebox.ViewModels
             };
 
 
+        }
+
+        private void ShowQuotes(string text)
+        {
+            _clockSideControl.Visibility = Visibility.Collapsed;
+            _imageSideControl.Visibility = Visibility.Collapsed;
+            _quoteSideControl.Visibility = Visibility.Visible;
+            QuotesView.SetText(text);
+
+            _voiceModel.Speak(text);
+
+
+        }
+
+        private void ShowEmoji(int idx)
+        {
+            _quoteSideControl.Visibility = Visibility.Collapsed;
+            _clockSideControl.Visibility = Visibility.Visible;
+            _imageSideControl.Visibility = Visibility.Collapsed;
+
+            ImagesView.ShowImage(idx);
+
+            _imageSideControl.Visibility = Visibility.Visible;
+        }
+
+        private string PronounceText(string nextAttendeeName)
+        {
+            if (nextAttendeeName.ToUpper() == @"TREASAMOL")
+            {
+                return "Tresa Mole";
+            }
+            else if (nextAttendeeName.ToUpper() == @"JUSTIN")
+            {
+                return "Just In";
+            }
+
+            return nextAttendeeName;
         }
 
 
@@ -152,7 +198,7 @@ namespace Timebox.ViewModels
             _imageSideControl = ctrl;
         }
 
-        private Label _displayTextControl;
+
         public void DisplayTextLoaded(Label ctrl)
         {
             _displayTextControl = ctrl;
@@ -160,11 +206,12 @@ namespace Timebox.ViewModels
 
         private void ShowController()
         {
+
             dynamic settings = new ExpandoObject();
             settings.WindowStyle = WindowStyle.ThreeDBorderWindow;
             settings.ShowInTaskbar = false;
             settings.Title = "Controller";
-            settings.WindowStyle = WindowStyle.ToolWindow;
+            settings.WindowStyle = WindowStyle.SingleBorderWindow;
             settings.WindowState = WindowState.Normal;
             settings.ResizeMode = ResizeMode.NoResize;
             settings.Top = 120;

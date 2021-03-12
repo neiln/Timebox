@@ -51,7 +51,7 @@ namespace Timebox.Models
 
             _mediaPlayer.Stop();
 
-            var uri = _soundFiles.ElementAt(4);
+            var uri = _soundFiles.ElementAt(8);
             _mediaPlayer.Open(uri);
             _mediaPlayer.Play();
             IsPlaying = true;

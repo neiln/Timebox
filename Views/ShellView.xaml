@@ -9,7 +9,7 @@
         WindowStyle="SingleBorderWindow"
         Background="{Binding BackBrush}"
         Title="{Binding AppTitle}" 
-        Height="260" Width="650" MinWidth="330" MinHeight="260">
+        Height="360" Width="650" MinWidth="330" MinHeight="260">
 
     <Grid Margin="12">
 
@@ -17,7 +17,7 @@
         <StackPanel Orientation="Horizontal">
             <StackPanel cal:Message.Attach="[Event Loaded] = [Action ClockSideLoaded($source)]" Width="300" Orientation="Vertical" Style="{StaticResource VisibleAnimation}" Visibility="Visible">
                 <ContentControl x:Name="ClockView" Height="140" Content=""></ContentControl>
-                <Border Background="#202020">
+                <Border Background="#202020" Visibility="Visible">
                     <Label x:Name="DisplayTitle" cal:Message.Attach="[Event Loaded] = [Action DisplayTextLoaded($source)]" Height="60" FontSize="32" FontFamily="Bahnschrift SemiCondensed" Foreground="AliceBlue" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource MoveTextAnimation}" Visibility="Visible"/>
                 </Border>
             </StackPanel>

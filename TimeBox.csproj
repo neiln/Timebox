@@ -237,25 +237,31 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Asset\Media\Applauses.mp3">
+    <Content Include="Asset\Media\7Answer.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Asset\Media\Boing.mp3">
+    <Content Include="Asset\Media\0Applauses.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Asset\Media\Boxingbell.mp3">
+    <Content Include="Asset\Media\1Boing.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Asset\Media\Drumroll.mp3">
+    <Content Include="Asset\Media\2Boxingbell.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Asset\Media\3Drumroll.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Asset\Media\Jeopardy-theme-song.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Asset\Media\Tick.mp3">
+    <Content Include="Asset\Media\4Tick.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Asset\Media\Wait.mp3">
+    <Content Include="Asset\Media\5Wait.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Asset\Media\6Wait2.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Asset\Stickers\01.png">

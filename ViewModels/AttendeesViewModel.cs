@@ -21,7 +21,7 @@ namespace Timebox.ViewModels
         {
             _attendees = attendees;
             Attendees = new ObservableCollection<string>(attendees.AttendeeList);
-            UpdateMinutes = new List<int> { 2, 3, 5, 10, 15, 20, 30, 60 };
+            UpdateMinutes = new List<int> { 1, 2, 3, 5, 10, 15, 20, 30, 60 };
 
             _selectedUpdateMin = attendees.UpdateMinutes;
             _selectedBackColor = attendees.BackColor;

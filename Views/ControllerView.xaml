@@ -8,12 +8,12 @@
         xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
         xmlns:resources="clr-namespace:Timebox.Models"
         mc:Ignorable="d"
-        Background="#222"
+        Background="#13212a"
         Title="Control" Height="540" Width="840">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="6"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="60"/>
@@ -26,12 +26,13 @@
         
         <ContentControl Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" x:Name="AttendeesView" Margin="6 2 2 3"/>
 
-        <Button cal:Message.Attach="[Action ButtonNextName($source)]" Grid.Row="3" Grid.Column="0" Content="START" Margin="4"
+        <Button cal:Message.Attach="[Action ButtonNextName($source)]" Grid.Row="3" Grid.Column="0" Content="START" Margin="4 4 2 4"
                 Background="Transparent"
                 Foreground="WhiteSmoke"
+                BorderThickness="0.5"
         ></Button>
 
-        <Border Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="#444" Margin="3">
+        <Border Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="#192c38" Margin="3">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <WrapPanel cal:Message.Attach="[Action WrapCanvas($source)]" HorizontalAlignment="Center" VerticalAlignment="Center">
             </WrapPanel>
@@ -52,6 +53,7 @@
                 Content="PLAY MUSIC" Margin="0 4 4 4"
                 Background="Transparent"
                 Foreground="WhiteSmoke"
+                BorderThickness="0.5"
         ></Button>
 
             <Grid Grid.Row="3" Grid.Column="1">
@@ -60,17 +62,20 @@
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
-            <Button x:Name="ButtonNextQuote" Grid.Column="0" Content="FETCH" Margin="0 4 4 4"
+            <Button x:Name="ButtonNextQuote" Grid.Column="0" Content="FETCH" Margin="3 4 4 4"
                     Background="Transparent"
                     Foreground="WhiteSmoke"
+                    BorderThickness="0.5"
                     ></Button>
             <Button x:Name="ButtonShowText" Grid.Column="1" Content="SHOW" Margin="0 4 4 4"
                     Background="Transparent"
                     Foreground="WhiteSmoke"
+                    BorderThickness="0.5"
             ></Button>
             <Button x:Name="ButtonShowAnswer" Grid.Column="2" Content="ANSWER" Margin="0 4 4 4"
                     Background="Transparent"
                     Foreground="WhiteSmoke"
+                    BorderThickness="0.5"
                     ></Button>
         </Grid>
     </Grid>

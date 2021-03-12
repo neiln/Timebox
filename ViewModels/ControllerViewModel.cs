@@ -75,6 +75,7 @@ namespace Timebox.ViewModels
                 FontSize = 32,
                 Margin = new Thickness(2),
                 Padding = new Thickness(4),
+                BorderThickness = new Thickness(0.5),
                 Background = new SolidColorBrush(Colors.Transparent),
             };
             btn.Click += async (s, e) =>
@@ -178,6 +179,7 @@ namespace Timebox.ViewModels
             _tunePlayer.Stop();
 
             if (_trivia == null) return;
+            _tunePlayer.Play(7);
             TextBlockQuote = _trivia.Correct_Answer;
             NotifyOfPropertyChange(nameof(TextBlockQuote));
             OnControllerEvent(new DisplayQuotesEventArgs() { Text = TextBlockQuote });

@@ -30,33 +30,6 @@
         <Setter Property="FontSize" Value="64" />
         <Setter Property="FontWeight" Value="ExtraBold" />
         <Setter Property="Width" Value="42"></Setter>
-
-        <!--<Style.Triggers>
-            <Trigger Property="Visibility" Value="Collapsed">
-                <Trigger.EnterActions>
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                             From="0.0" To="1.0" Duration="0:0:0.5" 
-                            />
-                        </Storyboard>
-                    </BeginStoryboard>
-                </Trigger.EnterActions>
-                <Trigger.ExitActions>
-                    <RemoveStoryboard BeginStoryboardName="AnimationBeginStoryboard"/>
-                </Trigger.ExitActions>
-            </Trigger>
-        </Style.Triggers>-->
-
-        <!--<Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Label}">
-                    <Border Background="{TemplateBinding Background}"  CornerRadius="3" BorderThickness="1" BorderBrush="White">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>-->
     </Style>
 
     <Style x:Key="ClockGrid" TargetType="Grid">

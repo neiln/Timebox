@@ -20,13 +20,16 @@ namespace Timebox.ViewModels
 {
     public class ClockViewModel : Screen
     {
+        private readonly AppConfig _appConfig;
         private readonly TunePlayer _tunePlayer;
         private readonly CounterClock _counterClock;
         public ClockViewModel(AppConfig appConfig, TunePlayer tunePlayer)
         {
-            int totalUpdateMinutes = appConfig.UpdateMinutes;
+            _appConfig = appConfig;
             _tunePlayer = tunePlayer;
+
             _counterClock = new CounterClock(UpdateDisplayTime, TimesUp);
+            int totalUpdateMinutes = _appConfig.UpdateMinutes;
             _counterClock.SetUpdateMinutes(totalUpdateMinutes);
 
            
@@ -39,7 +42,7 @@ namespace Timebox.ViewModels
 
         private void TimesUp()
         {
-            _tunePlayer.Play();
+            _tunePlayer.Play(8);
         }
 
         public string Date { get; } = DateTime.Today.ToString("ddd, dd MMM", CultureInfo.CreateSpecificCulture("en-US")).ToUpper();
@@ -104,7 +107,8 @@ namespace Timebox.ViewModels
 
         public async Task Start()
         {
-           
+            int totalUpdateMinutes = _appConfig.UpdateMinutes;
+            _counterClock.SetUpdateMinutes(totalUpdateMinutes);
             await _counterClock.Reset();
         }
 

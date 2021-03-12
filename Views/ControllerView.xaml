@@ -74,42 +74,4 @@
                     ></Button>
         </Grid>
     </Grid>
-
-    <!--<Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <ContentControl Grid.Row="0" x:Name="AttendeesView"  />
-        <StackPanel Grid.Row="1" Margin="14">
-            <TextBlock>BACKGROUND</TextBlock>
-            <ComboBox x:Name="BackgroundColors"></ComboBox>
-        </StackPanel>
-        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
-          <WrapPanel cal:Message.Attach="[Action WrapCanvas($source)]" HorizontalAlignment="Center" VerticalAlignment="Center">
-          </WrapPanel>
-        </ScrollViewer>
-        <Button cal:Message.Attach="[Action ButtonNextName($source)]" Grid.Row="3" Content="START"></Button>
-        <Button cal:Message.Attach="[Event Loaded] = [Action ButtonPlayMusicLoaded($source)]" Grid.Row="4" Content="PLAY MUSIC"></Button>
-
-        <TextBox x:Name="TextBlockQuote" Grid.Row="5" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Margin="4"></TextBox>
-        
-        <Grid Grid.Row="6">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-            </Grid.ColumnDefinitions>
-            <Button x:Name="ButtonNextQuote" Grid.Column="0" Content="FETCH"></Button>
-            <Button x:Name="ButtonShowText" Grid.Column="1" Content="SHOW"></Button>
-            <Button x:Name="ButtonShowAnswer" Grid.Column="2" Content="ANSWER"></Button>
-        </Grid>
-            
-    </Grid>-->
 </Window>

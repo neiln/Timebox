@@ -8,8 +8,74 @@
         xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
         xmlns:resources="clr-namespace:Timebox.Models"
         mc:Ignorable="d"
-        Title="Control" Height="740" Width="300">
+        Background="#222"
+        Title="Control" Height="540" Width="840">
+
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+        
+        <ContentControl Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" x:Name="AttendeesView" Margin="6 2 2 3"/>
+
+        <Button cal:Message.Attach="[Action ButtonNextName($source)]" Grid.Row="3" Grid.Column="0" Content="START" Margin="4"
+                Background="Transparent"
+                Foreground="WhiteSmoke"
+        ></Button>
+
+        <Border Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="#444" Margin="3">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <WrapPanel cal:Message.Attach="[Action WrapCanvas($source)]" HorizontalAlignment="Center" VerticalAlignment="Center">
+            </WrapPanel>
+        </ScrollViewer>
+        </Border>
+        <TextBox x:Name="TextBlockQuote" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" 
+                 Background="Transparent" BorderBrush="#444" 
+                 Foreground="#f5f5f5"
+                 AcceptsReturn="True" VerticalScrollBarVisibility="Auto" 
+                 Margin="3 4 3 3"></TextBox>
+
+        <StackPanel Grid.Row="1" Grid.Column="2" Margin="6">
+            <TextBlock Foreground="#999" Margin="0 2">BACKGROUND</TextBlock>
+            <ComboBox x:Name="BackgroundColors"></ComboBox>
+        </StackPanel>
+
+        <Button cal:Message.Attach="[Event Loaded] = [Action ButtonPlayMusicLoaded($source)]" Grid.Row="3" Grid.Column="2" 
+                Content="PLAY MUSIC" Margin="0 4 4 4"
+                Background="Transparent"
+                Foreground="WhiteSmoke"
+        ></Button>
+
+            <Grid Grid.Row="3" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="ButtonNextQuote" Grid.Column="0" Content="FETCH" Margin="0 4 4 4"
+                    Background="Transparent"
+                    Foreground="WhiteSmoke"
+                    ></Button>
+            <Button x:Name="ButtonShowText" Grid.Column="1" Content="SHOW" Margin="0 4 4 4"
+                    Background="Transparent"
+                    Foreground="WhiteSmoke"
+            ></Button>
+            <Button x:Name="ButtonShowAnswer" Grid.Column="2" Content="ANSWER" Margin="0 4 4 4"
+                    Background="Transparent"
+                    Foreground="WhiteSmoke"
+                    ></Button>
+        </Grid>
+    </Grid>
+
+    <!--<Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="3*" />
             <RowDefinition Height="Auto" />
@@ -34,7 +100,7 @@
 
         <TextBox x:Name="TextBlockQuote" Grid.Row="5" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Margin="4"></TextBox>
         
-        <Grid  Grid.Row="6">
+        <Grid Grid.Row="6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
@@ -45,5 +111,5 @@
             <Button x:Name="ButtonShowAnswer" Grid.Column="2" Content="ANSWER"></Button>
         </Grid>
             
-    </Grid>
+    </Grid>-->
 </Window>

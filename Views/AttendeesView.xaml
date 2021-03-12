@@ -5,8 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Timebox.Views"
              mc:Ignorable="d" 
-             Background="White"
-             d:DesignHeight="250" Width="250">
+             Background="Transparent"
+             d:DesignWidth="250"
+             d:DesignHeight="250" Width="Auto">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition  Height="Auto"/>
@@ -18,9 +19,12 @@
             <RowDefinition  Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="ATTENDEES" FontSize="11" Margin="0 4 0 0"/>
-        <ListView x:Name="Attendees" Grid.Row="1" SelectedValue="SelectedAttendee"  Margin="1"  />
-        <TextBlock Grid.Row="2" Text="ADD ATTENDEES" FontSize="11" Margin="0 4 0 0"/>
+        <ListView x:Name="Attendees" Grid.Row="1" SelectedValue="SelectedAttendee" 
+                  Background="Transparent"
+                  BorderBrush="#444"
+                  Foreground="#f5f5f5"
+                  Margin="1"  />
+        <TextBlock Grid.Row="2" Text="ADD ATTENDEES" Foreground="#999" FontSize="11" Margin="0 2"/>
         <Grid Grid.Row="3" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="7*" />
@@ -32,7 +36,7 @@
             <Button x:Name="AddButton" Grid.Column="2" Content="+" Margin="1" Height="24" />
             <Button x:Name="RemoveButton" Grid.Column="3" Content="x" Margin="1" Height="24" />
         </Grid>
-        <TextBlock Grid.Row="5" Text="UPDATE MINUTES" FontSize="11" Margin="0 4 0 0" />
+        <TextBlock Grid.Row="5" Text="UPDATE MINUTES" Foreground="#999" FontSize="11" Margin="0 6 0 2" />
         <ComboBox x:Name="UpdateMinutes" Grid.Row="6" SelectedValue="SelectedUpdateMinute"  />
 
     </Grid>

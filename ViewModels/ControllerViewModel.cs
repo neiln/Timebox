@@ -70,12 +70,12 @@ namespace Timebox.ViewModels
             {
                 Tag = idx,
                 Content = sticker != null ? new System.Windows.Controls.Image() { Source = new BitmapImage(new Uri(sticker)) } : null,
-                Width = 60,
-                Height = 60,
+                Width = 64,
+                Height = 64,
                 FontSize = 32,
                 Margin = new Thickness(2),
                 Padding = new Thickness(4),
-                Background = new SolidColorBrush(Colors.White),
+                Background = new SolidColorBrush(Colors.Transparent),
             };
             btn.Click += async (s, e) =>
             {
@@ -246,10 +246,10 @@ namespace Timebox.ViewModels
                     lst.Insert(idx, _trivia.Correct_Answer);
 
                     //add options A-D
-                    var r = lst.Select((value, index) => $"{(char)(65 + index)}. {value}");
+                    var qList = lst.Select((value, index) => $"{(char)(65 + index)}. {value}");
 
                     //insert indentation
-                    string result = r.Select(i => i).Aggregate((i, j) => i + "\r\n   " + j);
+                    string result = qList.Select(i => i).Aggregate((i, j) => i + "\r\n   " + j);
                     result = $"{_trivia.Question}\r\n   {result}";
 
                     //remove quotations and apostrophes

@@ -12,8 +12,10 @@ namespace Timebox.Models
     public class TriviaApiService
     {
         private readonly HttpClient _apiClient;
-        private string _url = @"https://opentdb.com/api.php?amount=1&category=11&difficulty=easy&type=multiple";
-       
+        private readonly string _baseUrl = "https://opentdb.com";
+        private int _categoryId = 11;
+        private string _difficulty = "easy";
+        
         public TriviaApiService()
         {
             _apiClient = new HttpClient();
@@ -21,10 +23,15 @@ namespace Timebox.Models
             _apiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<TriviaApiResult> GetTrivia()
+
+        public async Task<TriviaApiResult> GetTrivia(TriviaOptions options, TriviaDifficulty levels)
         {
-            
-            using (HttpResponseMessage response = await _apiClient.GetAsync(_url))
+
+            _categoryId = (int) options;
+            _difficulty = levels.ToString().ToLower();
+            string endpoint = $@"{_baseUrl}/api.php?amount=1&category={_categoryId}&difficulty={_difficulty}&type=multiple";
+
+            using (HttpResponseMessage response = await _apiClient.GetAsync(endpoint))
             {
                
                 if (response.IsSuccessStatusCode)
@@ -78,4 +85,8 @@ namespace Timebox.Models
         public string Correct_Answer { get; set; }
         public string [] Incorrect_Answers { get; set; }
     }
+
+
+    public enum TriviaDifficulty { Easy, Medium, Hard}
+    public enum TriviaOptions { Movies=11, Computers=18, History=23, Gadgets=30 }
 }

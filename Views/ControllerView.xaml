@@ -39,7 +39,7 @@
         </ScrollViewer>
         </Border>
         <TextBox x:Name="TextBlockQuote" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" 
-                 Background="Transparent" BorderBrush="#444" 
+                 Background="Transparent" BorderBrush="#192c38" 
                  Foreground="#f5f5f5"
                  AcceptsReturn="True" VerticalScrollBarVisibility="Auto" 
                  Margin="3 4 3 3"></TextBox>
@@ -47,6 +47,11 @@
         <StackPanel Grid.Row="1" Grid.Column="2" Margin="6">
             <TextBlock Foreground="#999" Margin="0 2">BACKGROUND</TextBlock>
             <ComboBox x:Name="BackgroundColors"></ComboBox>
+            <TextBlock Foreground="#999" Margin="0 8 0 2">GAME OPTIONS</TextBlock>
+            <ComboBox x:Name="TriviaOptions"></ComboBox>
+            <TextBlock Foreground="#999" Margin="0 8 0 2">LEVEL</TextBlock>
+            <ComboBox x:Name="TriviaLevels"></ComboBox>
+
         </StackPanel>
 
         <Button cal:Message.Attach="[Event Loaded] = [Action ButtonPlayMusicLoaded($source)]" Grid.Row="3" Grid.Column="2" 

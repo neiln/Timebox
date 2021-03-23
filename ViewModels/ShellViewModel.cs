@@ -45,7 +45,6 @@ namespace Timebox.ViewModels
 
                     if (DisplayTitle != "GOOD MORNING!" && DisplayTitle != "THANK YOU!")
                     {
-                        //speakText = PronounceText(DisplayTitle);
                         //_voiceModel.Speak("Next");
                     }
 
@@ -58,8 +57,8 @@ namespace Timebox.ViewModels
                     });
 
 
-                   // speakText = PronounceText(nextAttendee.Name);
-                   // _voiceModel.Speak("next " + speakText);
+                    //string speechText = PronounceText(nextAttendee.Name);
+                    //_voiceModel.Speak(speechText);
 
                     DisplayTitle = nextAttendee.Name.ToUpper();
 
@@ -72,7 +71,6 @@ namespace Timebox.ViewModels
                 {
                     if (reset.IsResetTimer)
                     {
-                        voiceModel.Speak("Thanks, That's all folks, let's do a trivia question");
                         DisplayTitle = "THANK YOU!";
                         await ClockView.Stop();
                         
@@ -80,6 +78,7 @@ namespace Timebox.ViewModels
 
                         if (_controllerView.TextBlockQuote != null)
                         {
+                            voiceModel.Speak("Thanks, That's all folks, let's do a trivia question");
                             await Task.Run(() => { Thread.Sleep(5000); });
 
                             _controllerView.PlayWaitMusic();

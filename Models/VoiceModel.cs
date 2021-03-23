@@ -17,6 +17,7 @@ namespace Timebox.Models
             _synthesizer = new SpeechSynthesizer();
             _synthesizer.SetOutputToDefaultAudioDevice();
             _synthesizer.SelectVoiceByHints(VoiceGender.Female, VoiceAge.Adult);
+            _synthesizer.Volume = 80;
         }
 
         public VoiceModel(Dictionary<string, string> pronunciationGuide)

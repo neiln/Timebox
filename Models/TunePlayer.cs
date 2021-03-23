@@ -58,7 +58,7 @@ namespace Timebox.Models
             OnMusicStatusChangeEvent(EventArgs.Empty);
         }
 
-        public void Play(int idx)
+        public void Play(int idx, double volume = 0.5)
         {
             _mediaPlayer.Stop();
 
@@ -67,6 +67,7 @@ namespace Timebox.Models
             var uri = _soundFiles.ElementAt(idx);
             
             _mediaPlayer.Open(uri);
+            _mediaPlayer.Volume = volume;
             _mediaPlayer.Play();
             IsPlaying = true;
             OnMusicStatusChangeEvent(EventArgs.Empty);

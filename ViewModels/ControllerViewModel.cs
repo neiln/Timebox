@@ -35,11 +35,15 @@ namespace Timebox.ViewModels
                 _playButton.Content = _tunePlayer.IsPlaying ? "STOP MUSIC" : "PLAY MUSIC";
             };
 
+            SelectedTriviaOption = "Movies";
+            SelectedTriviaLevel = "Hard";
         }
 
         protected override void OnActivate()
         {
             SelectedBackgroundColor = _attendeesViewModel.SelectedBackColor;
+           
+
         }
 
         protected override void OnDeactivate(bool close)
@@ -108,6 +112,7 @@ namespace Timebox.ViewModels
             OnControllerEvent(new DisplayEmojiEventArgs() { EmojiIndex = -1 });
         }
 
+        #region Background Colors
         public BindableCollection<string> BackgroundColors
         {
             get
@@ -138,6 +143,31 @@ namespace Timebox.ViewModels
 
             }
         }
+        #endregion
+
+        #region Trivia Options
+        public BindableCollection<string> TriviaOptions
+        {
+            get
+            {
+                return new BindableCollection<string>(Enum.GetNames(typeof(TriviaOptions)).Append("Chuck Norris"));
+            }
+        }
+
+        public string SelectedTriviaOption
+        {
+            get;
+            set;
+        }
+
+        #endregion
+
+        #region Trivia Levels
+        public BindableCollection<string> TriviaLevels => new BindableCollection<string>(Enum.GetNames(typeof(TriviaDifficulty)));
+
+        public string SelectedTriviaLevel { get; set; }
+
+        #endregion
 
         public void ButtonNextName(Button sender)
         {
@@ -164,8 +194,23 @@ namespace Timebox.ViewModels
         public void ButtonNextQuote()
         {
             _tunePlayer.Stop();
-            //GetChuckFact();
-            GetTriviaQuestion();
+
+            if (SelectedTriviaOption == "Chuck Norris")
+            {
+                GetChuckFact();
+            }
+            else 
+            {
+                if (Enum.TryParse(SelectedTriviaOption, out TriviaOptions option))
+                {
+                    if (Enum.TryParse(SelectedTriviaLevel, out TriviaDifficulty level))
+                    {
+                        GetTriviaQuestion(option, level);
+                    }
+                }
+               
+               
+            }
         }
 
         public void ButtonShowText()
@@ -179,7 +224,7 @@ namespace Timebox.ViewModels
             _tunePlayer.Stop();
 
             if (_trivia == null) return;
-            _tunePlayer.Play(7);
+            _tunePlayer.Play(7, 0.1);
             TextBlockQuote = _trivia.Correct_Answer;
             NotifyOfPropertyChange(nameof(TextBlockQuote));
             OnControllerEvent(new DisplayQuotesEventArgs() { Text = TextBlockQuote });
@@ -227,13 +272,13 @@ namespace Timebox.ViewModels
         }
 
         private TriviaModel _trivia;
-        private async void GetTriviaQuestion()
+        private async void GetTriviaQuestion(TriviaOptions option, TriviaDifficulty level)
         {
             try
             {
                 TriviaApiService triviaService = new TriviaApiService();
 
-                var triviaResult = await triviaService.GetTrivia();
+                var triviaResult = await triviaService.GetTrivia(option, level);
 
                 _trivia = null;
                 _trivia = triviaResult.Results.FirstOrDefault();
@@ -250,8 +295,12 @@ namespace Timebox.ViewModels
                     //add options A-D
                     var qList = lst.Select((value, index) => $"{(char)(65 + index)}. {value}");
 
+                    //update the answer prepended with option char
+                    var enumerable = qList.ToList();
+                    _trivia.Correct_Answer = enumerable.Skip(idx).Take(1).FirstOrDefault();
+
                     //insert indentation
-                    string result = qList.Select(i => i).Aggregate((i, j) => i + "\r\n   " + j);
+                    string result = enumerable.Select(i => i).Aggregate((i, j) => i + "\r\n   " + j);
                     result = $"{_trivia.Question}\r\n   {result}";
 
                     //remove quotations and apostrophes

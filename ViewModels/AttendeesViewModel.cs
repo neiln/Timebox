@@ -20,7 +20,6 @@ namespace Timebox.ViewModels
         public AttendeesViewModel(Attendees attendees)
         {
             _attendees = attendees;
-            Attendees = new ObservableCollection<string>(attendees.AttendeeList);
             UpdateMinutes = new List<int> { 1, 2, 3, 5, 10, 15, 20, 30, 60 };
 
             _selectedUpdateMin = attendees.UpdateMinutes;
@@ -29,7 +28,7 @@ namespace Timebox.ViewModels
         }
 
 
-        public ObservableCollection<string> Attendees { get; }
+        public IObservableCollection<string> Attendees => _attendees.AttendeeList;
 
         public string SelectedAttendee
         {
@@ -106,6 +105,16 @@ namespace Timebox.ViewModels
 
             Attendees.Remove(SelectedAttendee);
 
+        }
+
+        public void SkipButton()
+        {
+
+        }
+
+        public void ShuffleButton()
+        {
+            _attendees.ShuffleAttendeeList();
         }
 
         private void SaveChanges()

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Caliburn.Micro;
 using Syroot.Windows.IO;
 
 namespace Timebox.Models
@@ -13,34 +14,36 @@ namespace Timebox.Models
     public class Attendees
     {
         private readonly AppConfig _appConfig;
-        public List<string> AttendeeList;
-        
+        private int _currentSelectionIdx;
+
         public Attendees(AppConfig appConfig)
         {
-            AttendeeList = new List<string>();
+            AttendeeList = new BindableCollection<string>();
             _appConfig = appConfig;
-            AttendeeList.AddRange(_appConfig.AttendeeNames);
+
+            ShuffleAttendeeList();
         }
 
+        public void ShuffleAttendeeList()
+        {
+            _currentSelectionIdx = 0;
+            var names = ShuffleNames(_appConfig.AttendeeNames);
+            AttendeeList.Clear();
+            AttendeeList.AddRange(names);
+
+        }
+
+        public IObservableCollection<string> AttendeeList { get; set; }
         public string GetNextAttendee()
         {
-
-            if (AttendeeList.Count == 0)
+            if (_currentSelectionIdx > AttendeeList.Count - 1)
             {
-                AttendeeList.Clear();
-
-                if (_appConfig.AttendeeNames != null && _appConfig.AttendeeNames.Length > 0)
-                {
-                    AttendeeList.AddRange(_appConfig.AttendeeNames);
-                }
-
+                ShuffleAttendeeList();
                 return string.Empty;
             }
 
-            Random rand = new Random(Guid.NewGuid().GetHashCode());
-            int idx = rand.Next(AttendeeList.Count);
-            string name = AttendeeList[idx].ToString();
-            AttendeeList.RemoveAt(idx);
+            string name = AttendeeList[_currentSelectionIdx];
+            _currentSelectionIdx++;
 
             return name;
         }
@@ -54,5 +57,12 @@ namespace Timebox.Models
             _appConfig.Save(attendees, updateMin, backColor);
         }
 
+        private string[] ShuffleNames(string[] attendees)
+        {
+            Random random = new Random();
+            var result = _appConfig.AttendeeNames.Where(x => x.Length > 0).OrderBy(x => random.Next()).Select(x=>x.ToUpper()).ToArray();
+
+            return result;
+        }
     }
 }

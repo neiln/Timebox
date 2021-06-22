@@ -80,6 +80,7 @@ namespace Timebox.ViewModels
                 Margin = new Thickness(2),
                 Padding = new Thickness(4),
                 BorderThickness = new Thickness(0.5),
+                BorderBrush = new SolidColorBrush(Colors.DarkCyan),
                 Background = new SolidColorBrush(Colors.Transparent),
             };
             btn.Click += async (s, e) =>
@@ -146,13 +147,7 @@ namespace Timebox.ViewModels
         #endregion
 
         #region Trivia Options
-        public BindableCollection<string> TriviaOptions
-        {
-            get
-            {
-                return new BindableCollection<string>(Enum.GetNames(typeof(TriviaOptions)).Append("Chuck Norris"));
-            }
-        }
+        public BindableCollection<string> TriviaOptions => new BindableCollection<string>(Enum.GetNames(typeof(TriviaOptions)).Append("Chuck Norris"));
 
         public string SelectedTriviaOption
         {
@@ -182,6 +177,7 @@ namespace Timebox.ViewModels
             {
                 sender.Content = "START";
                 OnControllerEvent(new ResetTimerEventArgs() { IsResetTimer = true });
+
             }
             else
             {
@@ -198,6 +194,7 @@ namespace Timebox.ViewModels
             if (SelectedTriviaOption == "Chuck Norris")
             {
                 GetChuckFact();
+                _trivia = null;
             }
             else 
             {
@@ -216,6 +213,11 @@ namespace Timebox.ViewModels
         public void ButtonShowText()
         {
             _tunePlayer.Stop();
+
+            if (_trivia != null)
+            {
+                _tunePlayer.Play(((SelectedTriviaLevel == "Hard") ? 5 : 6), 0.5);
+            }
             OnControllerEvent(new DisplayQuotesEventArgs() { Text = TextBlockQuote });
         }
 
@@ -224,6 +226,7 @@ namespace Timebox.ViewModels
             _tunePlayer.Stop();
 
             if (_trivia == null) return;
+
             _tunePlayer.Play(7, 0.1);
             TextBlockQuote = _trivia.Correct_Answer;
             NotifyOfPropertyChange(nameof(TextBlockQuote));

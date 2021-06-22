@@ -17,6 +17,7 @@
             <RowDefinition  Height="Auto"/>
             <RowDefinition  Height="Auto"/>
             <RowDefinition  Height="Auto"/>
+            <RowDefinition  Height="Auto"/>
         </Grid.RowDefinitions>
 
         <ListView x:Name="Attendees" Grid.Row="1" SelectedValue="SelectedAttendee" 
@@ -24,20 +25,25 @@
                   BorderBrush="#192c38"
                   Foreground="#f5f5f5"
                   Margin="1"  />
-        <TextBlock Grid.Row="2" Text="ADD ATTENDEES" Foreground="#999" FontSize="11" Margin="0 2"/>
-        <Grid Grid.Row="3" >
+
+        <Button x:Name="ShuffleButton" Grid.Row="2" Content="SHUFFLE" Height="32" Background="Transparent" BorderThickness="1" BorderBrush="DarkCyan" Foreground="White" Margin="4" />
+
+        <TextBlock Grid.Row="3" Text="ADD ATTENDEES" Foreground="#999" FontSize="11" Margin="0 2"/>
+        <Grid Grid.Row="4" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="7*" />
                 <ColumnDefinition Width="39*"/>
                 <ColumnDefinition Width="33" />
                 <ColumnDefinition Width="33" />
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="NewAttendee" Grid.Column="0" Margin="1" Grid.ColumnSpan="2" />
-            <Button x:Name="AddButton" Grid.Column="2" Content="+" Margin="1" Height="24" />
-            <Button x:Name="RemoveButton" Grid.Column="3" Content="x" Margin="1" Height="24" />
+            <TextBox x:Name="NewAttendee" Grid.Column="0" Margin="1" Grid.ColumnSpan="2" Background="Transparent" BorderThickness="1" BorderBrush="DarkCyan" Foreground="White"/>
+            <Button x:Name="AddButton" Grid.Column="2" Content="+" Margin="1" Height="24" Background="Transparent" BorderThickness="1" BorderBrush="DarkCyan" Foreground="White"/>
+            <Button x:Name="RemoveButton" Grid.Column="3" Content="x" Margin="1" Height="24" Background="Transparent" BorderThickness="1" BorderBrush="DarkCyan" Foreground="White"/>
         </Grid>
+
         <TextBlock Grid.Row="5" Text="UPDATE MINUTES" Foreground="#999" FontSize="11" Margin="0 6 0 2" />
         <ComboBox x:Name="UpdateMinutes" Grid.Row="6" SelectedValue="SelectedUpdateMinute"  />
+        
 
     </Grid>
 </UserControl>

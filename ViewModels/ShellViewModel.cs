@@ -6,6 +6,7 @@ using System.Dynamic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Annotations;
 using System.Windows.Controls;
 using Caliburn.Micro;
 using System.Windows.Media;
@@ -76,14 +77,14 @@ namespace Timebox.ViewModels
                         
                         NotifyOfPropertyChange(nameof(DisplayTitle));
 
-                        if (_controllerView.TextBlockQuote != null)
-                        {
-                            voiceModel.Speak("Thanks, That's all folks, let's do a trivia question");
-                            await Task.Run(() => { Thread.Sleep(5000); });
-
-                            _controllerView.PlayWaitMusic();
-                            ShowQuotes(_controllerView.TextBlockQuote);
-                        }
+                        // if (_controllerView.TextBlockQuote != null)
+                        // {
+                        //     voiceModel.Speak("Thanks, That's all folks, let's do a trivia question");
+                        //     await Task.Run(() => { Thread.Sleep(5000); });
+                        //
+                        //     _controllerView.PlayWaitMusic();
+                        //     ShowQuotes(_controllerView.TextBlockQuote);
+                        // }
                     }
                 }
 
@@ -102,8 +103,24 @@ namespace Timebox.ViewModels
                    BackBrush = new SolidColorBrush(changeColorEvent.BackColor);
                 }
             };
+            
+            SetGreeting();
+        }
 
-
+        private void SetGreeting()
+        {
+            if (DateTime.Now.Hour > 6 && DateTime.Now.Hour < 11)
+            {
+                _displayText = "GOOD MORNING!";
+            }
+            else if (DateTime.Now.Hour > 11 && DateTime.Now.Hour < 14)
+            {
+                _displayText = "GOOD AFTERNOON!";
+            }
+            else
+            {
+                _displayText = "GOOD EVENING!";
+            }
         }
 
         private void ShowQuotes(string text)
@@ -114,7 +131,6 @@ namespace Timebox.ViewModels
             QuotesView.SetText(text);
 
             _voiceModel.Speak(text);
-
 
         }
 
@@ -127,20 +143,6 @@ namespace Timebox.ViewModels
             ImagesView.ShowImage(idx);
 
             _imageSideControl.Visibility = Visibility.Visible;
-        }
-
-        private string PronounceText(string nextAttendeeName)
-        {
-            if (nextAttendeeName.ToUpper() == @"TREASAMOL")
-            {
-                return "Tresa Mole";
-            }
-            else if (nextAttendeeName.ToUpper() == @"JUSTIN")
-            {
-                return "Just In";
-            }
-
-            return nextAttendeeName;
         }
 
 

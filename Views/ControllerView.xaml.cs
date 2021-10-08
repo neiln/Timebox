@@ -23,5 +23,10 @@ namespace Timebox.Views
         {
             InitializeComponent();
         }
+
+        private void ControllerView_OnClosed(object sender, EventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

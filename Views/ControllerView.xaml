@@ -9,7 +9,9 @@
         xmlns:resources="clr-namespace:Timebox.Models"
         mc:Ignorable="d"
         Background="#13212a"
-        Title="Control" Height="540" Width="840">
+        WindowStyle="SingleBorderWindow"
+        Closed="ControllerView_OnClosed"
+        Title="Control" Height="540" Width="940">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -27,9 +29,9 @@
         <ContentControl Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" x:Name="AttendeesView" Margin="6 2 2 3"/>
 
         <Button cal:Message.Attach="[Action ButtonNextName($source)]" Grid.Row="3" Grid.Column="0" Content="START" Margin="4 4 2 4"
-                Background="Transparent"
-                Foreground="WhiteSmoke"
-                BorderBrush="DarkCyan"
+                Background="LightSeaGreen"
+                Foreground="Black"
+                BorderBrush="Black"
         ></Button>
 
         <Border Grid.Row="1" Grid.Column="1" BorderThickness="3" BorderBrush="#192c38" Margin="3">
@@ -56,9 +58,9 @@
 
         <Button cal:Message.Attach="[Event Loaded] = [Action ButtonPlayMusicLoaded($source)]" Grid.Row="3" Grid.Column="2" 
                 Content="PLAY MUSIC" Margin="0 4 4 4"
-                Background="Transparent"
-                Foreground="WhiteSmoke"
-                BorderBrush="DarkCyan"
+                Background="LightCoral"
+                Foreground="Black"
+                BorderBrush="Black"
         ></Button>
 
             <Grid Grid.Row="3" Grid.Column="1">
@@ -68,19 +70,19 @@
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
             <Button x:Name="ButtonNextQuote" Grid.Column="0" Content="FETCH" Margin="3 4 4 4"
-                    Background="Transparent"
-                    Foreground="WhiteSmoke"
-                    BorderBrush="DarkCyan"
+                    Background="LightSlateGray"
+                    Foreground="Black"
+                    BorderBrush="Black"
                     ></Button>
             <Button x:Name="ButtonShowText" Grid.Column="1" Content="SHOW" Margin="0 4 4 4"
-                    Background="Transparent"
-                    Foreground="WhiteSmoke"
-                    BorderBrush="DarkCyan"
+                    Background="LightSlateGray"
+                    Foreground="Black"
+                    BorderBrush="Black"
             ></Button>
             <Button x:Name="ButtonShowAnswer" Grid.Column="2" Content="ANSWER" Margin="0 4 4 4"
-                    Background="Transparent"
-                    Foreground="WhiteSmoke"
-                    BorderBrush="DarkCyan"
+                    Background="LightSlateGray"
+                    Foreground="Black"
+                    BorderBrush="Black"
                     ></Button>
         </Grid>
     </Grid>

@@ -7,9 +7,10 @@
         xmlns:cal="http://www.caliburnproject.org"
         mc:Ignorable="d"
         WindowStyle="SingleBorderWindow"
+        Closed="ShellView_OnClosed"
         Background="{Binding BackBrush}"
         Title="{Binding AppTitle}" 
-        Height="540" Width="650" MinWidth="330" MinHeight="260">
+        Height="540" Width="950" MinWidth="330" MinHeight="260">
 
     <Grid Margin="12">
 

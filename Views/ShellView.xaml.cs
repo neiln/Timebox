@@ -23,5 +23,10 @@ namespace Timebox.Views
         {
             InitializeComponent();
         }
+
+        private void ShellView_OnClosed(object sender, EventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

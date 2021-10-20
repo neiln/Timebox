@@ -28,5 +28,10 @@ namespace Timebox.Views
         {
             Application.Current.Shutdown();
         }
+
+        private void ShellView_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
     }
 }

@@ -6,16 +6,23 @@
         xmlns:local="clr-namespace:Timebox"
         xmlns:cal="http://www.caliburnproject.org"
         mc:Ignorable="d"
-        WindowStyle="SingleBorderWindow"
         Closed="ShellView_OnClosed"
         Background="{Binding BackBrush}"
         Title="{Binding AppTitle}" 
+        WindowStyle="None" ResizeMode="NoResize"
         Height="540" Width="950" MinWidth="330" MinHeight="260">
 
-    <Grid Margin="12">
+    <Grid Margin="2">
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal">
+        <!-- Title -->
+        <Border Grid.Row="0" Grid.Column="0"  Background="Transparent"  MouseDown="ShellView_OnMouseDown"/>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
             <StackPanel cal:Message.Attach="[Event Loaded] = [Action ClockSideLoaded($source)]" Width="300" Orientation="Vertical" Style="{StaticResource VisibleAnimation}" Visibility="Visible">
                 <ContentControl x:Name="ClockView" Height="140" Content=""></ContentControl>
                 <Border Background="#202020" Visibility="Visible">

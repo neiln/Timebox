@@ -114,4 +114,81 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="ChromeButton" TargetType="{x:Type Button}">
+        <Setter Property="Height" Value="Auto"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <!--Default state-->
+                    <Border x:Name="btn">
+                        <Border.Background>
+                            <SolidColorBrush Color="Transparent" />
+                        </Border.Background>
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          TextBlock.Foreground="White">
+                        </ContentPresenter>
+                    </Border>
+
+                    <!--Behaviors-->
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="btn" Value="#141414"/>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" TargetName="btn">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="#3F88C5"></SolidColorBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" TargetName="btn" Value="0.25"/>
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ChromeCloseButton" TargetType="{x:Type Button}" BasedOn="{StaticResource ChromeButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+
+                <ControlTemplate TargetType="{x:Type Button}">
+
+                    <!--Default state-->
+                    <Border x:Name="btn">
+                        <Border.Background>
+                            <SolidColorBrush Color="#AAA" Opacity="0.40" />
+                        </Border.Background>
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"                                           
+                                          TextBlock.Foreground="White" >
+                        </ContentPresenter>
+                    </Border>
+                    <!--Behaviors-->
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="btn" Value="#A31621"/>
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

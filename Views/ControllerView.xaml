@@ -1,62 +1,83 @@
 ﻿<Window x:Class="Timebox.Views.ControllerView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xml:lang="en-US"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Timebox.Views"
         xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
-        xmlns:resources="clr-namespace:Timebox.Models"
+        xml:lang="en-US"
         mc:Ignorable="d"
         Background="#13212a"
-        WindowStyle="SingleBorderWindow"
         Closed="ControllerView_OnClosed"
+        WindowStyle="None" 
+        ResizeMode="NoResize"
         Title="Control" Height="540" Width="940">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="6"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="60"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="200"/>
-        </Grid.ColumnDefinitions>
-        
-        <ContentControl Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" x:Name="AttendeesView" Margin="6 2 2 3"/>
 
-        <Button cal:Message.Attach="[Action ButtonNextName($source)]" Grid.Row="3" Grid.Column="0" Content="START" Margin="4 4 2 4"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="44" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Button x:Name="CloseButton" Grid.Column="1" Click="WindowButton_OnClick" Style="{StaticResource ChromeCloseButton}" FontSize="18">&#10799;</Button>
+
+        <!-- Title -->
+        <Border Grid.Row="0" Grid.Column="0"  Background="#003B67" MouseDown="Window_MouseDown">
+            <TextBlock Foreground="AliceBlue" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16">
+                C O N T R O L L E R
+            </TextBlock>
+        </Border>
+
+
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="6"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+
+            <ContentControl Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" x:Name="AttendeesView" Margin="6 2 2 3"/>
+
+            <Button cal:Message.Attach="[Action ButtonNextName($source)]" Grid.Row="3" Grid.Column="0" Content="START" Margin="4 4 2 4"
                 Background="LightSeaGreen"
                 Foreground="Black"
                 BorderBrush="Black"
         ></Button>
 
-        <Border Grid.Row="1" Grid.Column="1" BorderThickness="3" BorderBrush="#192c38" Margin="3">
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <WrapPanel cal:Message.Attach="[Action WrapCanvas($source)]" HorizontalAlignment="Center" VerticalAlignment="Center">
-            </WrapPanel>
-        </ScrollViewer>
-        </Border>
-        <TextBox x:Name="TextBlockQuote" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" 
+            <Border Grid.Row="1" Grid.Column="1" BorderThickness="3" BorderBrush="#192c38" Margin="3">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <WrapPanel cal:Message.Attach="[Action WrapCanvas($source)]" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    </WrapPanel>
+                </ScrollViewer>
+            </Border>
+            <TextBox x:Name="TextBlockQuote" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" 
                  Background="Transparent" BorderBrush="#192c38" BorderThickness="3"
                  Foreground="#f5f5f5"
                  AcceptsReturn="True" VerticalScrollBarVisibility="Auto" 
                  Margin="3 4 3 3"></TextBox>
 
-        <StackPanel Grid.Row="1" Grid.Column="2" Margin="6">
-            <TextBlock Foreground="#999" Margin="0 2">BACKGROUND</TextBlock>
-            <ComboBox x:Name="BackgroundColors"></ComboBox>
-            <TextBlock Foreground="#999" Margin="0 8 0 2">GAME OPTIONS</TextBlock>
-            <ComboBox x:Name="TriviaOptions"></ComboBox>
-            <TextBlock Foreground="#999" Margin="0 8 0 2">LEVEL</TextBlock>
-            <ComboBox x:Name="TriviaLevels"></ComboBox>
+            <StackPanel Grid.Row="1" Grid.Column="2" Margin="6">
+                <TextBlock Foreground="#999" Margin="0 2">BACKGROUND</TextBlock>
+                <ComboBox x:Name="BackgroundColors"></ComboBox>
+                <TextBlock Foreground="#999" Margin="0 8 0 2">GAME OPTIONS</TextBlock>
+                <ComboBox x:Name="TriviaOptions"></ComboBox>
+                <TextBlock Foreground="#999" Margin="0 8 0 2">LEVEL</TextBlock>
+                <ComboBox x:Name="TriviaLevels"></ComboBox>
 
-        </StackPanel>
+            </StackPanel>
 
-        <Button cal:Message.Attach="[Event Loaded] = [Action ButtonPlayMusicLoaded($source)]" Grid.Row="3" Grid.Column="2" 
+            <Button cal:Message.Attach="[Event Loaded] = [Action ButtonPlayMusicLoaded($source)]" Grid.Row="3" Grid.Column="2" 
                 Content="PLAY MUSIC" Margin="0 4 4 4"
                 Background="LightCoral"
                 Foreground="Black"
@@ -64,26 +85,27 @@
         ></Button>
 
             <Grid Grid.Row="3" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-            </Grid.ColumnDefinitions>
-            <Button x:Name="ButtonNextQuote" Grid.Column="0" Content="FETCH" Margin="3 4 4 4"
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Button x:Name="ButtonNextQuote" Grid.Column="0" Content="FETCH" Margin="3 4 4 4"
                     Background="LightSlateGray"
                     Foreground="Black"
                     BorderBrush="Black"
                     ></Button>
-            <Button x:Name="ButtonShowText" Grid.Column="1" Content="SHOW" Margin="0 4 4 4"
+                <Button x:Name="ButtonShowText" Grid.Column="1" Content="SHOW" Margin="0 4 4 4"
                     Background="LightSlateGray"
                     Foreground="Black"
                     BorderBrush="Black"
             ></Button>
-            <Button x:Name="ButtonShowAnswer" Grid.Column="2" Content="ANSWER" Margin="0 4 4 4"
+                <Button x:Name="ButtonShowAnswer" Grid.Column="2" Content="ANSWER" Margin="0 4 4 4"
                     Background="LightSlateGray"
                     Foreground="Black"
                     BorderBrush="Black"
                     ></Button>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

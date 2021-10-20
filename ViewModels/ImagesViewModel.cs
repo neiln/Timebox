@@ -20,7 +20,7 @@ namespace Timebox.ViewModels
 
         public void ShowImage(int idx)
         {
-            if (idx == -1 || idx == 11)
+            if (idx == -1 || idx == 13)
             {
                 StickerImage = null;
                 NotifyOfPropertyChange(nameof(StickerImage));

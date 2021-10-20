@@ -212,7 +212,7 @@ namespace Timebox.ViewModels
             settings.WindowStyle = WindowStyle.ThreeDBorderWindow;
             settings.ShowInTaskbar = false;
             settings.Title = "Controller";
-            settings.WindowStyle = WindowStyle.SingleBorderWindow;
+            settings.WindowStyle = WindowStyle.None;
             settings.WindowState = WindowState.Normal;
             settings.ResizeMode = ResizeMode.NoResize;
             settings.Top = 120;

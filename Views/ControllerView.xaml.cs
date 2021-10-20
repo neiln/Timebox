@@ -28,5 +28,29 @@ namespace Timebox.Views
         {
             Application.Current.Shutdown();
         }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void WindowButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            switch ((sender as Button)?.Name)
+            {
+                case "MinButton":
+                    this.WindowState = WindowState.Minimized;
+                    break;
+
+                case "MaxButton":
+                    this.WindowState = (this.WindowState == WindowState.Maximized) ? WindowState.Normal : WindowState.Maximized;
+                    break;
+
+                case "CloseButton":
+                    this.Close();
+                    Application.Current.Shutdown();
+                    break;
+            }
+        }
     }
 }

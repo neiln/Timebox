@@ -58,7 +58,7 @@ namespace Timebox.ViewModels
             }
         }
 
-        
+
         public string SelectedBackColor
         {
             get => _selectedBackColor;
@@ -85,11 +85,14 @@ namespace Timebox.ViewModels
         {
             if (string.IsNullOrWhiteSpace(NewAttendee)) return;
 
-            Attendees.Add(NewAttendee.Trim());
+            if (_attendees.AttendeeList.FirstOrDefault(x=>x.ToLower()==NewAttendee.ToLower())!=null)
+            {
+                return;
+            }
+
             _attendees.AttendeeList.Add(NewAttendee.Trim());
 
             SaveChanges();
-
             NewAttendee = "";
             NotifyOfPropertyChange(nameof(NewAttendee));
         }

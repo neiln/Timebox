@@ -13,7 +13,7 @@
         </Canvas>
 
         <Border x:Name="QuoteRegion">
-            <TextBlock x:Name="Text" TextWrapping="Wrap" VerticalAlignment="Top" Style="{StaticResource FontQuote}" FontSize="35" FontWeight="DemiBold" Margin="12" Padding="8" />
+            <TextBlock x:Name="Text" TextWrapping="Wrap" VerticalAlignment="Top" Style="{StaticResource FontQuote}" FontSize="32" FontWeight="DemiBold" Margin="12" Padding="8" />
         </Border>
 
 

@@ -264,7 +264,7 @@
     <Content Include="Asset\Media\6Wait2.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Asset\Stickers\05.png">
+    <Content Include="Asset\Stickers\00.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Asset\Stickers\08.png">
@@ -288,19 +288,19 @@
     <Content Include="Asset\Stickers\06.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Asset\Stickers\02.png">
+    <Content Include="Asset\Stickers\07.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Asset\Stickers\03.png">
+    <Content Include="Asset\Stickers\13.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Asset\Stickers\04.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Asset\Stickers\07.png">
+    <Content Include="Asset\Stickers\02.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Asset\Stickers\13.png">
+    <Content Include="Asset\Stickers\03.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Asset\Stickers\14.png">

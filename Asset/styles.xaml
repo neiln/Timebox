@@ -169,7 +169,7 @@
                     <!--Default state-->
                     <Border x:Name="btn">
                         <Border.Background>
-                            <SolidColorBrush Color="#AAA" Opacity="0.40" />
+                            <SolidColorBrush Color="#444" Opacity="0.40" />
                         </Border.Background>
                         <ContentPresenter HorizontalAlignment="Center"
                                           VerticalAlignment="Center"                                           

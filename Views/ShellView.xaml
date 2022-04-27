@@ -25,8 +25,8 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <StackPanel cal:Message.Attach="[Event Loaded] = [Action ClockSideLoaded($source)]" Width="300" Orientation="Vertical" Style="{StaticResource VisibleAnimation}" Visibility="Visible">
                 <ContentControl x:Name="ClockView" Height="140" Content=""></ContentControl>
-                <Border Background="#202020" Visibility="Visible">
-                    <Label x:Name="DisplayTitle" cal:Message.Attach="[Event Loaded] = [Action DisplayTextLoaded($source)]" Height="60" FontSize="32" FontFamily="Bahnschrift SemiCondensed" Foreground="AliceBlue" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource MoveTextAnimation}" Visibility="Visible"/>
+                <Border Background="Transparent" Visibility="Visible" BorderBrush="DarkSlateBlue" BorderThickness="2" CornerRadius="8">
+                    <Label x:Name="DisplayTitle" cal:Message.Attach="[Event Loaded] = [Action DisplayTextLoaded($source)]" Height="60" FontSize="42" FontFamily="Bahnschrift SemiCondensed" Foreground="DarkSlateBlue" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource MoveTextAnimation}" Visibility="Visible" />
                 </Border>
             </StackPanel>
             <ContentControl x:Name="QuotesView" cal:Message.Attach="[Event Loaded] = [Action QuoteSideLoaded($source)]" Width="600" Margin="4" Style="{StaticResource VisibleAnimation}"></ContentControl>

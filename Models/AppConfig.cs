@@ -23,8 +23,20 @@ namespace Timebox.Models
             }
             else
             {
-                string file = Path.Combine(_configPath, "Attendees.txt");
-                var content = File.ReadAllLines(file);
+                string fileLocation = Path.Combine(_configPath, "Attendees.txt");
+
+                if (!File.Exists(fileLocation))
+                {
+                    using (StreamWriter sw = File.CreateText(fileLocation))
+                    {
+                        //Write default 
+                        sw.WriteLine("Attendees=");
+                        sw.WriteLine("UpdateMinutes=3");
+                        sw.WriteLine("BackColor=Green");
+                    }
+                }
+
+                var content = File.ReadAllLines(fileLocation);
                 AttendeeNames = content[0].Remove(0, content[0].IndexOf('=')+1).Split(',');
 
                 if (int.TryParse(content[1].Remove(0, content[1].IndexOf('=')+1), out int result))
